@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command  class="Command" type="byte" text="输入指令" value="A5 5A 06 00 DC 01 E3 AA" />
+	<pos class="Packet" text="导航数据" lenth="37">
+		<HEADER value="8E 8E" />
+		<status type="byte" text="ID"/>	
+		<time type="byte" text="定位状态"/>
+		<num type="byte" text="定位星数" unit="个"/>
+		<num type="byte" text="UTC时间精准标志"/>
+		<lat type="byte" text="年"/>
+		<lon type="byte" text="月"/>
+		<height type="byte" text="日"/>
+		<pitch type="byte" text="时"/>
+		<yaw type="byte" text="分"/>
+		<roll type="UInt16" text="秒" scale="0.1"/>
+		<lat type="Int32" text="导航经度" unit="度" scale="0.00000027777778"/>
+		<lon type="Int32" text="导航纬度" unit="度" scale="0.00000027777778"/>
+		<height type="Int16" text="导航高程" unit="米+300"/>
+		<height type="UInt16" text="水平速度" scale="0.1"/>
+		<height type="UInt16" text="水平速度方向" scale="0.1"/>
+		<height type="Int16" text="垂直速度" scale="0.1"/>
+		<lat type="byte" text="测速有效标识" unit="0xaa:测速无效;0x55:测速有效"/>
+		<pitch type="byte" text="PDOP" scale="0.1"/>
+		<pitch type="byte" text="定位工作模式"/>
+		<pitch type="Int32" text="周内秒"/>
+		<CHECKSUM start="0" end="35" count="1"/>
+	</pos>
+	<pos class="Packet" text="导航数据" lenth="70">
+		<HEADER value="AA 55"/>
+		<status type="byte" text="状态位" unit="70准备;60快速对准;65正常对准;66空中对准;01纯惯;00组合"/>	
+		<time type="UInt32" text="时标" unit="秒" scale="0.001"/>
+		<num type="byte" text="卫星数目" unit="个"/>
+		<lat type="Int32" text="导航经度" unit="度" scale="0.00000027777778"/>
+		<lon type="Int32" text="导航纬度" unit="度" scale="0.00000027777778"/>
+		<height type="Int16" text="导航高程" unit="米+300"/>
+		<pitch type="Int16" text="导航俯仰角" unit="度" scale="0.01"/>
+		<yaw type="UInt16" text="导航航向角" unit="度" scale="0.01"/>
+		<roll type="Int16" text="导航横滚角" unit="度" scale="0.01"/>
+		<Ve type="Int16" text="东向速度" unit="米/秒" scale="0.01068115234375"/>
+		<Vn type="Int16" text="北向速度" unit="米/秒" scale="0.01068115234375"/>
+		<Vu type="Int16" text="天向速度" unit="米/秒" scale="0.01068115234375"/>
+		<GryZ type="Int16" text="Z轴角速度" unit="度/秒" scale="0.0091552734375"/>
+		<GryY type="Int16" text="Y轴角速度" unit="度/秒" scale="0.0091552734375"/>
+		<GryX type="Int16" text="X轴角速度" unit="度/秒" scale="0.0091552734375"/>
+		<AccX type="Int16" text="X轴加速度" unit="米/秒2" scale="0.00897216796875"/>
+		<AccY type="Int16" text="Y轴加速度" unit="米/秒2" scale="0.00897216796875"/>
+		<AccZ type="Int16" text="Z轴加速度" unit="米/秒2" scale="0.00897216796875"/>
+		<lon1 type="Int32" text="GPS经度" unit="度" scale="0.00000027777778"/>
+		<lat1 type="Int32" text="GPS纬度" unit="度" scale="0.00000027777778"/>
+		<height1 type="Int16" text="GPS高程" unit="米+300"/>
+		<tow type="UInt32" text="GPS周秒"/>
+		<pps type="byte" text="秒脉冲标记"/>
+		<avi type="byte" text="北斗数据有效标志"/>
+		<statusBD type="byte" text="北斗状态字"/>
+		<statusData type="byte" text="数据有效标志" base="16" unit="0x11组合;0x22纯惯;0x33无效;0x44对准"/>
+		<temp type="sbyte" text="温度"/>
+		<err type="UInt16" text="故障字" base="2"/>
+		<bdLock type="byte" text="BM单元编码状态" unit="0x00:无编码方案;0x01:正式码;0x02:测试码"/>
+		<BMTYPE type="byte" text="加注信息类型" base="16" unit="0x00:B3频点PRM加注有限期;0x01:B1频点PRM加注有限期;0x02:BM单元加注有效期;0x10:无PRM、BM单元加注"/>
+		<PYEAR type="byte" text="P码截止(年)"/>
+		<PMONTH type="byte" text="P码截止(月)"/>
+		<PDAY type="byte" text="P码截止(日)"/>
+		<reseverd type="byte" text="BM单元自毁标识" unit="0x00:默认;0xAA:成功;0x55:失败"/>
+		<CHECKSUM start="0" end="68" count="1"/>
+	</pos>
+</protocol>

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command  class="Command" type="byte" text="开锁" value="EA 51 02 02 04 00 08"/>
+	<command  class="Command" type="byte" text="关闭" value="EA 51 01 01 04 00 06"/>
+	<command  class="Command" type="byte" text="单次发送欧拉角数据" value="FF AA 00 33"/>
+	<command  class="Command" type="byte" text="单次发送10组数据" value="FF AA 00 44"/>
+	<command  class="Command" type="byte" text="发送全部数据" value="FF AA 66 00"/>
+	<command  class="Command" type="byte" text="发送欧拉角数据" value="FF AA 66 01"/>
+	<command  class="Command" type="byte" text="发送惯导数据" value="FF AA 66 02"/>
+	<command  class="Command" type="byte" text="发送磁力计数据" value="FF AA 66 03"/>
+	<command  class="Command" type="byte" text="发送欧拉角、惯导数据" value="FF AA 66 04"/>
+	<command  class="Command" type="byte" text="发送欧拉角、磁力计数据" value="FF AA 66 05"/>
+	<command  class="Command" type="byte" text="发送惯导、磁力计数据" value="FF AA 66 06"/>
+	<command  class="Command" type="byte" text="二维标定" value="EA 51 05 05 04 00 0E"/>
+	<command  class="Command" type="byte" text="三维标定" value="EA 51 06 06 04 00 10"/>
+	<command  class="Command" type="byte" text="取消标定" value="EA 51 07 07 04 00 12"/>
+	<command  class="Command" type="string" text="保存配置参数" value="#qconfig\r\n#qsave calib\r\n#qboot\r\n"/>
+	<pos class="Packet" text="欧拉角数据" lenth="41">
+		<HEADER value="FF 5A 06 01 20 00" />
+		<time type="UInt32" text="时间" unit="us"/>
+		<roll type="float" text="横滚角" scale="57.295779513" unit="度"/>
+		<pitch type="float" text="俯仰角" scale="57.295779513" unit="度"/>
+		<yaw type="float" text="航向角" scale="57.295779513" unit="度"/>
+		<gRoll type="float" text="横滚角精度" unit="度"/>
+		<gPitch type="float" text="俯仰角精度" unit="度"/>
+		<gYaw type="float" text="航向角精度" unit="度"/>
+		<status type="UInt16" text="状态位" base="16"/>
+		<status type="UInt16" text="状态位"/>
+		<CHECKSUM start="2" end="37" CRC="CRC16-CCITT-R" count="2"/>
+	</pos>
+	<pos class="Packet" text="惯导数据" lenth="67">
+		<HEADER value="FF 5A 03 00 3A 00" />
+		<time type="UInt32" text="时间"  unit="us"/>
+		<status type="UInt16" text="惯导状态"/>
+		<accX type="float" text="加速度X" unit="m/s2"/>
+		<accY type="float" text="加速度Y" unit="m/s2"/>
+		<accZ type="float" text="加速度Z" unit="m/s2"/>
+		<gryX type="float" text="陀螺X" unit="rad/s"/>
+		<gryY type="float" text="陀螺Y" unit="rad/s"/>
+		<gryZ type="float" text="陀螺Z" unit="rad/s"/>
+		<tmp type="float" text="温度" unit="度"/>
+		<DeltaX type="float" text="DeltaX速度" unit="m/s2"/>
+		<DeltaY type="float" text="DeltaY速度" unit="m/s2"/>
+		<DeltaZ type="float" text="DeltaZ速度" unit="m/s2"/>
+		<DeltaX1 type="float" text="DeltaX角速度" unit="rad/s"/>
+		<DeltaY1 type="float" text="DeltaY角速度" unit="rad/s"/>
+		<DeltaZ1 type="float" text="DeltaZ角速度" unit="rad/s"/>
+		<CHECKSUM start="2" end="63" CRC="CRC16-CCITT-R" count="2"/>
+	</pos>
+	<pos class="Packet" text="磁力计数据" lenth="39">
+		<HEADER value="FF 5A 04 00 1E 00" />
+		<time type="UInt32" text="时间"  unit="us"/>
+		<status type="UInt16" text="磁力计状态"/>
+		<magX type="float" text="磁力计X" unit="nT"/>
+		<magY type="float" text="磁力计Y" unit="nT"/>
+		<magZ type="float" text="磁力计Z" unit="nT"/>
+		<accX type="float" text="内部加速度X" unit="m/s2"/>
+		<accY type="float" text="内部加速度Y" unit="m/s2"/>
+		<accZ type="float" text="内部加速度Z" unit="m/s2"/>
+		<CHECKSUM start="2" end="35" CRC="CRC16-CCITT-R" count="2"/>
+	</pos>
+	<pos class="Packet" text="10组欧拉角数据" lenth="137">
+		<HEADER value="FF 5A 07 00 89 00" />
+		<time type="UInt32" text="时间" unit="us"/>
+		<nav text="欧拉角" lenth="12" count="10" maxCount="10" >
+			<roll type="float" text="横滚角" scale="57.295779513" unit="度"/>
+			<pitch type="float" text="俯仰角" scale="57.295779513" unit="度"/>
+			<yaw type="float" text="航向角" scale="57.295779513" unit="度"/>
+		</nav>
+		<status type="UInt16" text="状态位" base="16"/>
+		<status type="UInt16" text="状态位"/>
+		<CHECKSUM start="2" end="133" CRC="CRC16-CCITT-R" count="2"/>
+	</pos>
+</protocol>

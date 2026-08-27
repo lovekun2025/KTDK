@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command  class="Command" type="byte" text="凯迈" value="55 AA"/>
+	<command  class="Command" type="byte" text="关闭GNSS" value="EA 51 01 04 06 00 01 00 0C"/>
+	<command  class="Command" type="byte" text="打开GNSS" value="EA 51 01 04 06 00 00 00 0B"/>
+	<pos class="Packet" text="凯迈数据" lenth="32">
+		<HEADER value="55 AA" />
+		<lat type="Int32" text="导航纬度" scale="0.0000000419095158772" unit="度"/>
+		<lon type="Int32" text="导航经度" scale="0.0000000838190317544" unit="度"/>
+		<high type="Int16" text="高程" unit="米"/>
+		<yaw type="UInt16" text="导航航向角" scale="0.01" unit="度"/>
+		<pitch type="Int16" text="导航俯仰角" scale="0.01" unit="度"/>
+		<roll type="Int16" text="导航横滚角" scale="0.01" unit="度"/>
+		<Ve type="Int16" text="东向速度" scale="0.01" unit="米/秒"/>
+		<Vn type="Int16" text="北向速度" scale="0.01" unit="米/秒"/>
+		<Vu type="Int16" text="天向速度" scale="0.01" unit="米/秒"/>
+		<gyroX type="Int16" text="陀螺X" scale="0.01" unit="度/秒"/>
+		<gyroY type="Int16" text="陀螺Y" scale="0.01" unit="度/秒"/>
+		<gyroZ type="Int16" text="陀螺Z" scale="0.01" unit="度/秒"/>
+		<status type="byte" text="状态位" unit="0:无效;1:组合;2:纯惯性"/>
+		<CHECKSUM start="2" end="30" count="1"/>
+	</pos>
+</protocol>

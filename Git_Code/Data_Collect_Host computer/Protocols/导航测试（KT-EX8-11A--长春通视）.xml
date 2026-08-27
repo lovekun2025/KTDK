@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command1 class="Command" type="byte" text="长春通视" value="55 AA"/>
+	<command1 class="Command" type="byte" text="13所" value="55 AA"/>
+	<pos0 class="Packet" text="长春通视导航数据" lenth="126">
+		<HEADER value="EB 90"/>
+		<count type="UInt16" text="长度"/>
+		<count type="UInt16" text="计数"/>
+		<lon type="Int32" text="导航经度" scale="0.0000001" unit="度"/>
+		<lat type="Int32" text="导航纬度" scale="0.0000001" unit="度"/>
+		<hight type="Int32" text="导航高度" scale="0.01" unit="米"/>
+		<velZ type="UInt16" text="基座航向角" scale="0.01" unit="度"/>
+		<velZ type="Int16" text="基座俯仰角" scale="0.01" unit="度"/>
+		<velZ type="Int16" text="基座横滚角" scale="0.01" unit="度"/>
+		<yaw type="UInt16" text="MEMS航向角" scale="0.01" unit="度"/>
+		<pitch type="Int16" text="MEMS俯仰角" scale="0.01" unit="度"/>
+		<roll type="Int16" text="MEMS横滚角" scale="0.01" unit="度"/>
+		<velX type="Int16" text="东向速度" scale="0.01" unit="米/秒"/>
+		<velY type="Int16" text="北向速度" scale="0.01" unit="米/秒"/>
+		<velZ type="Int16" text="天向速度" scale="0.01" unit="米/秒"/>
+		<gryX type="Int32" text="X轴角速度" scale="0.00114591559" unit="度/秒"/>
+		<gryY type="Int32" text="Y轴角速度" scale="0.00114591559" unit="度/秒"/>
+		<gryZ type="Int32" text="Z轴角速度" scale="0.00114591559" unit="度/秒"/>
+		<accX type="Int32" text="X轴加速度" scale="0.00002" unit="米/秒2"/>
+		<accY type="Int32" text="Y轴加速度" scale="0.00002" unit="米/秒2"/>
+		<accZ type="Int32" text="Z轴加速度" scale="0.00002" unit="米/秒2"/>
+		<reserved type="float" text="导航航向角" unit="航向差"/>
+		<tmp type="sbyte" text="温度" unit="度"/>
+		<status type="byte" text="状态字" base="16" unit="0x03:对准;0x05:纯惯性;0x07:组合"/>
+		<fault type="byte" text="故障字" base="2" unit="Bit0:惯导数据不可用;Bit1:卫导数据不可用"/>
+		<tick type="UInt16" text="IMU更新时间"/>
+		<Pitchpod type="Int16" text="俯仰框架角" scale="0.01" unit="度"/>
+		<Azimpod type="UInt16" text="方位框架角" scale="0.01" unit="度"/>
+		<tick type="UInt16" text="主惯导更新时间"/>
+		<lon type="Int32" text="GPS经度" scale="0.0000001" unit="度"/>
+		<lat type="Int32" text="GPS纬度" scale="0.0000001" unit="度"/>
+		<hight type="Int32" text="GPS高度" scale="0.01" unit="米"/>
+		<yaw type="UInt16" text="方位角" scale="0.01" unit="度"/>
+		<pitch type="Int16" text="俯仰角" scale="0.01" unit="度"/>
+		<roll type="Int16" text="极化角" scale="0.01" unit="度"/>
+		<velX type="Int16" text="GPS东向速度" scale="0.01" unit="米/秒"/>
+		<velY type="Int16" text="GPS北向速度" scale="0.01" unit="米/秒"/>
+		<velZ type="Int16" text="GPS天向速度" scale="0.01" unit="米/秒"/>
+		<tick type="byte" text="主惯导状态"/>
+		<reserved type="float" text="导航俯仰角" unit="俯仰差"/>
+		<tick type="byte" text="指令"/>
+		<flag type="byte" text="动态标定标识"/>
+		<reserved type="byte" text="预留"/>
+		<reserved type="UInt16" text="主惯导接收计数"/>
+		<reserved type="float" text="导航横滚角" unit="横滚差"/>
+		<lon type="Int32" text="解算目标经度" scale="0.0000001" unit="度"/>
+		<lat type="Int32" text="解算目标纬度" scale="0.0000001" unit="度"/>
+		<hight type="Int32" text="解算目标高度" scale="0.01" unit="米"/>
+		<CHECKSUM start="0" end="124" count="1"/>
+	</pos0>
+</protocol>

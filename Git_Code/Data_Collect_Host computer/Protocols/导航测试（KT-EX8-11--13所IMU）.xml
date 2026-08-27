@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<pos class="Packet" text="导航数据" byteEndian="big" lenth="12">
+		<HEADER value="AA 55"/>
+		<Vx type="Int32" lenth="3" scale="0.00006103515625" text="X角速度" unit="度/秒"/>
+		<Vy type="Int32" lenth="3" scale="0.00006103515625" text="Y角速度" unit="度/秒"/>
+		<Vz type="Int32" lenth="3" scale="0.00006103515625" text="Z角速度" unit="度/秒"/>
+		<CHECKSUM start="0" end="10" count="1"/>
+	</pos>
+</protocol>

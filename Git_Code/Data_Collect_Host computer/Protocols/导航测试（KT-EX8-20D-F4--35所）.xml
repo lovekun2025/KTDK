@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<pos class="Packet" text="GXPVA显示" isString="true" separator=", *" endMark="0D 0A">
+		<HEADER value="$GXPVA" />
+		<UTC type="string" text="UTC时间(yymmdd)" />
+		<UTC type="string" text="UTC时间(hhmmss.ss)" />
+		<lon type="string" text="导航纬度" />
+		<lat type="string" text="导航经度" />
+		<height type="string" text="海拔高" unit="米"/>
+		<Ve type="string" text="东向速度" unit="米/秒"/>
+		<Vn type="string" text="北向速度" unit="米/秒"/>
+		<Vu type="string" text="天向速度" unit="米/秒"/>
+		<Heading type="string" text="航向角" unit="度"/>
+		<Pitch type="string" text="俯仰角" unit="度"/>
+		<Roll type="string" text="横滚角" unit="度"/>
+		<Vx type="string" text="X速度" unit="米/秒"/>
+		<Vy type="string" text="Y速度" unit="米/秒"/>
+		<Vz type="string" text="Z速度" unit="米/秒"/>
+		<GyroX type="string" text="X轴角速度" unit="度/秒"/>
+		<GyroY type="string" text="Y轴角速度" unit="度/秒"/>
+		<GyroZ type="string" text="Z轴角速度" unit="度/秒"/>
+		<AccX type="string" text="X轴加速度" unit="度/秒2"/>
+		<AccY type="string" text="Y轴加速度" unit="度/秒2"/>
+		<AccZ type="string" text="Z轴加速度" unit="度/秒2"/>
+		<Status type="string" text="状态位" />
+		<CHECKSUM count="2" />
+	</pos>
+	<pos3 class="Packet" text="GBPVA显示" lenthStart="4" lenthSize="2" lenthAdd="4">
+		<HEADER value="EA 52 01 01" />
+		<len type="UInt16" text="帧长" />
+		<count type="UInt16" text="帧计数"/>
+		<time type="double" text="同步时间"/>
+		<lat type="double" text="导航经度" unit="度"/>
+		<lon type="double" text="导航纬度" unit="度"/>
+		<height type="float" text="高程" unit="米"/>
+		<Vx type="float" text="东向速度" unit="米/秒"/>
+		<Vy type="float" text="北向速度" unit="米/秒"/>
+		<Vz type="float" text="天向速度" unit="米/秒"/>
+		<hangxiang type="float" text="导航航向角" unit="度"/>
+		<fuyang type="float" text="导航俯仰角" unit="度"/>
+		<henggun type="float" text="导航横滚角" unit="度"/>
+		<Vx type="float" text="X速度" unit="米/秒"/>
+		<Vy type="float" text="Y速度" unit="米/秒"/>
+		<Vz type="float" text="Z速度" unit="米/秒"/>
+		<GyroX type="float" text="X轴角速度" unit="度/秒"/>
+		<GyroY type="float" text="Y轴角速度" unit="度/秒"/>
+		<GyroZ type="float" text="Z轴角速度" unit="度/秒"/>
+		<AccX type="float" text="X轴加速度" unit="度/秒2"/>
+		<AccY type="float" text="Y轴加速度" unit="度/秒2"/>
+		<AccZ type="float" text="Z轴加速度" unit="度/秒2"/>
+		<flag type="UInt32" text="状态位" />
+		<CHECKSUM start="2" end="Lenth-3"  CRC="CRC16-CCITT" count="2"/>
+	</pos3>
+</protocol>

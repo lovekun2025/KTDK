@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+    <command1 class="Command" type="byte" text="13所" value="55 AA"/>
+    <command1 class="Command" type="byte" text="13所地垂" value="55 AA"/>
+    <pos0 class="Packet" text="导航数据" lenth="54">
+        <HEADER value="AA 55"/>
+        <id type="UInt16" text="ID" unit="0x0002"/>
+        <length type="UInt16" text="长度" unit="0x002C"/>
+        <time type="UInt32" text="时间" unit="us"/>
+        <pitch type="float" text="导航俯仰角" unit="度"/>
+        <roll type="float" text="导航横滚角" unit="度"/>
+        <yaw type="float" text="导航航向角" unit="度"/>
+		<accX type="float" text="X轴加速度" unit="g"/>
+        <accY type="float" text="Y轴加速度" unit="g"/>
+        <accZ type="float" text="Z轴加速度" unit="g"/>
+        <gryX type="float" text="X轴角速度" unit="度/秒"/>
+        <gryY type="float" text="Y轴角速度" unit="度/秒"/>
+        <gryZ type="float" text="Z轴角速度" unit="度/秒"/>
+        <tmp type="float" text="温度" unit="度"/>
+        <CHECKSUM start="0" end="49" CRC="CRC32-TABLE" count="4"/>
+    </pos0>
+</protocol>

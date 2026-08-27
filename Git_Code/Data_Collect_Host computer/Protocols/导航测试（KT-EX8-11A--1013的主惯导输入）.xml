@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command1  class="Command"  type="byte" text="13所" value="55 AA"/>
+	<pos0 class="Packet" text="1013输入数据" lenth="88">
+		<HEADER value="90 EB"/>
+		<reserved type="UInt16" text="数据长度"/>
+		<reserved type="UInt16" text="预留"/>
+		<reserved type="byte" text="数据有效性" unit="0x00:无效;0x01:组合;0x02:纯惯"/>
+		<lon type="Int32" text="INS经度" scale="0.0000000838190317544243446" unit="度"/>
+		<lat type="Int32" text="INS纬度" scale="0.000000041909515877212" unit="度"/>
+		<hight type="Int32" text="INS高度" scale="0.001" unit="米"/>
+		<yaw type="Int16" text="INS航向角" scale="0.0054933317" unit="度"/>
+		<pitch type="Int16" text="INS俯仰角" scale="0.0027466658528" unit="度"/>
+		<roll type="Int16" text="INS横滚角" scale="0.0054933317" unit="度"/>
+		<Vu type="Int16" text="东向速度" scale="0.01562547685" unit="米/秒"/>
+		<Vu type="Int16" text="北向速度" scale="0.01562547685" unit="米/秒"/>
+		<Vu type="Int16" text="天向速度" scale="0.01562547685" unit="米/秒"/>
+		<gyroZ type="Int16" text="载体X角速率" scale="0.0152592547" unit="度/秒"/>
+		<gyroX type="Int16" text="载体Y角速率" scale="0.0152592547" unit="度/秒"/>
+		<gyroY type="Int16" text="载体Z角速率" scale="0.0152592547" unit="度/秒"/>
+		<gyroX type="Int16" text="载体X角速率" scale="0.0152592547" unit="度/秒"/>
+		<gyroY type="Int16" text="载体Y角速率" scale="0.0152592547" unit="度/秒"/>
+		<gyroZ type="Int16" text="载体Z角速率" scale="0.0152592547" unit="度/秒"/>
+		<gryX type="UInt16" text="年" unit="度/秒"/>
+		<gryX type="byte" text="月" unit="度/秒"/>
+		<gryX type="byte" text="日" unit="度/秒"/>
+		<gryX type="byte" text="时" unit="度/秒"/>
+		<gryX type="byte" text="分" unit="度/秒"/>
+		<gryX type="byte" text="秒" unit="度/秒"/>
+		<gryX type="UInt16" text="毫秒" unit="度/秒"/>
+		<lon type="Int32" text="GNSS经度" scale="0.0000000838190317544243446" unit="度"/>
+		<lat type="Int32" text="GNSS纬度" scale="0.000000041909515877212" unit="度"/>
+		<hight type="Int32" text="GNSS高度" scale="0.001" unit="米"/>
+		<Vu type="Int16" text="东向速度" scale="0.01562547685" unit="米/秒"/>
+		<Vu type="Int16" text="北向速度" scale="0.01562547685" unit="米/秒"/>
+		<Vu type="Int16" text="天向速度" scale="0.01562547685" unit="米/秒"/>
+		<statusINS type="byte" text="GNSS状态" unit="1:有效"/>
+		<reserved type="UInt64" text="备用"/>
+		<reserved type="UInt32" text="备用"/>
+		<reserved type="UInt16" text="备用"/>
+		<reserved type="byte" text="备用"/>
+		<CHECKSUM start="0" end="85" count="1" />
+	</pos0>
+</protocol>

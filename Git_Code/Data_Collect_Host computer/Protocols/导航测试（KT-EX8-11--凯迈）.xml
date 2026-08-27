@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command  class="Command" type="byte" text="凯迈" value="55 AA"/>
+	<command  class="Command" type="byte" text="关闭GNSS" value="EA 51 01 04 06 00 01 00 0C"/>
+	<command  class="Command" type="byte" text="打开GNSS" value="EA 51 01 04 06 00 00 00 0B"/>
+	<pos class="Packet" text="导航数据" lenth="101">
+		<HEADER value="55 AA" />
+		<len type="byte" text="帧长"/>
+		<accX type="float" text="加速度X"/>
+		<accY type="float" text="加速度Y"/>
+		<accZ type="float" text="加速度Z"/>
+		<gyroY type="float" text="陀螺Y"/>
+		<gyroX type="float" text="陀螺X"/>
+		<gyroZ type="float" text="陀螺Z"/>
+		<pitch type="float" text="导航俯仰角" unit="度"/>
+		<roll type="float" text="导航横滚角" unit="度"/>
+		<highAir type="float" text="气压高度" unit="米"/>
+		<yaw type="float" text="导航航向角" unit="度"/>
+		<Vu type="float" text="天向速度" unit="米/秒"/>
+		<Ve type="float" text="东向速度" unit="米/秒"/>
+		<Vn type="float" text="北向速度" unit="米/秒"/>
+		<highBd type="float" text="北斗高度" unit="米"/>
+		<velBd type="float" text="北斗地速" unit="米/秒"/>
+		<lat type="Int32" text="导航纬度" scale="0.0000000419095158772" unit="度"/>
+		<lon type="Int32" text="导航经度" scale="0.0000000838190317544" unit="度"/>
+		<high type="float" text="高程" unit="米"/>
+		<vel type="float" text="惯导地速" unit="度/秒"/>
+		<heading type="float" text="惯导真航向" unit="度"/>
+		<course type="float" text="惯导航迹" unit="度"/>
+		<year type="UInt16" text="年"/>
+		<month type="byte" text="月"/>
+		<day type="byte" text="日"/>
+		<hour type="byte" text="时"/>
+		<minute type="byte" text="分"/>
+		<msec type="UInt16" text="毫秒"/>
+		<drift type="float" text="偏流角" unit="度"/>
+		<status type="byte" text="状态位"/>
+		<CHECKSUM start="2" end="99" count="1"/>
+	</pos>
+</protocol>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<pos1 class="Packet" text="惯导数据帧" lenth="67">
+		<HEADER value="EB 10" />
+		<status type="bit" lenth="1">
+			<status1 lenth="1" start="0" text="源地址" unit="0x02"/>
+			<status2 lenth="1" start="1" text="目的地址" unit="0x01"/>
+			<status3 lenth="2" start="2" text="帧长度" unit="帧长度"/>
+		</status>
+		<cmd type="UInt16" text="命令字" base="16" unit="0xE5 32:设备自检反馈"/>
+		<status type="bit" lenth="1">
+			<status1 lenth="1" start="0" text="自检结果" unit="01正常"/>
+			<status2 lenth="1" start="1" base="2" text="自检" unit="正常为1"/>
+		</status>
+		<status2 type="byte" text="导航状态字2"  base="2"  unit="10：对准"/>
+		<status1 type="byte" text="导航状态字1"  base="2"  unit=""/>
+		<heading type="Int16" text="航向角" scale="0.0054933317056795" unit="度"/>
+		<yaw type="Int16" text="偏航角" scale="0.0054933317056795" unit="度"/>
+		<roll type="Int16" text="滚转角" scale="0.0054933317056795" unit="度"/>
+		<pitch type="Int16" text="俯仰角" scale="0.0054933317056795" unit="度"/>
+		<posX type="Int32" lenth="3" text="X轴位移" scale="0.0357627911284913" unit="米"/>
+		<posY type="Int32" lenth="3" text="Y轴位移" scale="0.0357627911284913" unit="米"/>
+		<posZ type="Int32" lenth="3" text="Z轴位移" scale="0.0357627911284913" unit="米"/>
+		<velX type="Int16" text="X轴速度" scale="0.0915555284279916" unit="米/秒"/>
+		<velY type="Int16" text="Y轴速度" scale="0.0915555284279916" unit="米/秒"/>
+		<velZ type="Int16" text="Z轴速度" scale="0.0915555284279916" unit="米/秒"/>
+		<DataSelection type="byte" text="数据字节" base="2" unit=""/>
+		<longitude type="Int32" text="经度" scale="0.0000001" unit="度"/>
+		<latitude type="Int32" text="纬度" scale="0.0000001" unit="度"/>
+		<imuTemp type="byte" text="IMU温度" scale="1" unit="℃"/>
+		<height type="Int24" text="高度" scale="0.0035762791128491" unit="米"/>
+		<eastVel type="Int16" text="东向速度" scale="0.0915555284279916" unit="米/秒"/>
+		<northVel type="Int16" text="北向速度" scale="0.0915555284279916" unit="米/秒"/>
+		<skyVel type="Int16" text="天向速度" scale="0.0915555284279916" unit="米/秒"/>
+		<gyroX type="Int32" lenth="3" text="X轴陀螺角速度" scale="0.000059604651880" unit="度/秒"/>
+		<gyroY type="Int32" lenth="3" text="Y轴陀螺角速度" scale="0.000059604651880" unit="度/秒"/>
+		<gyroZ type="Int32" lenth="3" text="Z轴陀螺角速度" scale="0.000059604651880" unit="度/秒"/>
+		<overloadX type="Int32" lenth="3" text="X轴过载" scale="0.0000119209303" unit="g"/>
+		<overloadY type="Int32" lenth="3" text="Y轴过载" scale="0.0000119209303" unit="g"/>
+		<overloadZ type="Int32" lenth="3" text="Z轴过载" scale="0.0000119209303" unit="g"/>
+		<frameCounter type="UInt16" text="帧计数" base="10"/>
+		<CHECKSUM start="2" end="64" CRC="CRC8-XOR" count="1" text="校验和" base="16"/>
+	</pos1>
+</protocol>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0"?>
+<protocol>
+    <command1 class="Command" type="byte" text="KT-EX6-3" value="55 AA"/>
+    <pos1 class="Packet" text="设备自检反馈" byteEndian="big" lenth="10">
+		<HEADER value="55 AA 32 04"/>
+		<wkstat type="UInt16" text="命令字" base="16"/>
+		<cbstat type="byte" text="查询结果" base="16" unit="0x00:异常；0x01:正常"/>
+		<cbstat type="byte" text="惯组状态" base="2" unit="bit0:异常；bit1:正常"/>
+		<CHECKSUM start="2" end="7" CRC="CRC8-XOR" count="1"/>
+    </pos1>
+	<pos1 class="Packet" text="惯导的测量信息1" byteEndian="big" lenth="30">
+		<HEADER value="55 AA 32 18"/>
+		<wkstat type="UInt16" text="命令字" base="16"/>
+		<gyroX type="Int16" text="X陀螺" scale="0.0152592547379986" unit="度/秒" />
+		<gyroY type="Int16" text="Y陀螺" scale="0.0152592547379986" unit="度/秒" />
+		<gyroZ type="Int16" text="Z陀螺" scale="0.0152592547379986" unit="度/秒" />
+		<accX type="Int16" text="X加速度" scale="0.0030518509475997" unit="g" />
+		<accY type="Int16" text="Y加速度" scale="0.0030518509475997" unit="g" />
+		<accZ type="Int16" text="Z加速度" scale="0.0030518509475997" unit="g" />
+		<wkstat type="UInt16" text="命令字" base="16"/>
+		<roll type="Int16" text="滚转角" scale="0.0054933317056795" unit="度"/>
+		<heading type="Int16" text="偏航角" scale="0.0054933317056795" unit="度"/>
+		<pitch type="Int16" text="俯仰角" scale="0.0027466658528397" unit="度"/>
+		<cbstat type="byte" text="炮口标志" base="16" unit="0x00:炮口未断开；0x01:炮口断开"/>
+		<counter type="byte" text="计数"/>
+		<CHECKSUM start="2" end="27" CRC="CRC8-XOR" count="1"/>
+    </pos1>
+	<pos1 class="Packet" text="惯导的测量信息2" byteEndian="big" lenth="46">
+		<HEADER value="55 AA 32 28"/>
+		<wkstat type="UInt16" text="命令字" base="16"/>
+		<gyroX type="Int16" text="X陀螺" scale="0.0152592547379986" unit="度/秒" />
+		<gyroY type="Int16" text="Y陀螺" scale="0.0152592547379986" unit="度/秒" />
+		<gyroZ type="Int16" text="Z陀螺" scale="0.0152592547379986" unit="度/秒" />
+		<accX type="Int16" text="X加速度" scale="0.0030518509475997" unit="g" />
+		<accY type="Int16" text="Y加速度" scale="0.0030518509475997" unit="g" />
+		<accZ type="Int16" text="Z加速度" scale="0.0030518509475997" unit="g" />
+		<wkstat type="UInt16" text="命令字" base="16"/>
+		<roll type="Int16" text="滚转角" scale="0.0054933317056795" unit="度"/>
+		<heading type="Int16" text="偏航角" scale="0.0054933317056795" unit="度"/>
+		<pitch type="Int16" text="俯仰角" scale="0.0027466658528397" unit="度"/>
+		<velX type="Int16" text="X速度" scale="0.0427259132663961" unit="米/秒" />
+		<velY type="Int16" text="Y速度" scale="0.0427259132663961" unit="米/秒" />
+		<velZ type="Int16" text="Z速度" scale="0.0427259132663961" unit="米/秒" />
+		<wkstat type="UInt16" text="命令字" base="16"/>
+		<disX type="Int16" text="X位移" scale="0.152592547379986" unit="米" />
+		<disY type="Int16" text="Y位移" scale="0.152592547379986" unit="米" />
+		<disZ type="Int16" text="Z位移" scale="0.152592547379986" unit="米" />
+		<status type="bit" lenth="1">
+			<status1 lenth="4" start="4" text="置0"/>
+			<status2 lenth="2" start="2" text="炮口状态" unit="0:炮口未断开；1:炮口断开"/>
+			<status3 lenth="2" start="0" text="导航状态" unit="0:未转导航；1:转导航"/>
+		</status>
+		<status type="bit" lenth="1">
+			<status1 lenth="5" start="3" text="置0"/>
+			<status2 lenth="1" start="2" text="对准状态" unit="0:未对准；1:对准完成"/>
+			<status3 lenth="2" start="0" text="对准模式" unit="00:自对准；11:装订对准"/>
+		</status>
+		<counter type="UInt16" text="计数"/>
+		<CHECKSUM start="2" end="43" CRC="CRC8-XOR" count="1"/>
+    </pos1>
+</protocol>

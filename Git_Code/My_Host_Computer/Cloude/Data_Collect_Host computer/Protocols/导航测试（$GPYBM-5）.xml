@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+  <pos class="Packet" text="宇通协议数据"  isString="true" separator=", *" endMark="0D 0A">
+    <HEADER value="$GPYBM" />
+    <ID type="string" text="设备序列号" />
+    <UTC type="string" text="UTC时间" />
+    <lat type="string" text="导航纬度" unit="度"/>
+    <lon type="string" text="导航经度" unit="度"/>
+    <height type="string" text="海拔高" unit="米"/>
+    <azimuth type="string" text="导航航向角" unit="度"/>
+    <pitching type="string" text="导航俯仰角" unit="度"/>
+    <velocityN type="string" text="前向速度" unit="米/秒"/>
+    <velocityE type="string" text="右向速度" unit="米/秒"/>
+    <velocityG type="string" text="天向速度" unit="米/秒"/>
+    <X type="string" text="右向轴加速度" unit="米/秒2"/>
+    <Y type="string" text="前向轴加速度" unit="米/秒2"/>
+    <Z type="string" text="天向轴加速度" unit="米/秒2"/>
+    <X1 type="string" text="右向轴角速度" unit="度/秒"/>
+    <Y1 type="string" text="前向轴角速度" unit="度/秒"/>
+    <Z1 type="string" text="天向轴角速度" unit="度/秒"/>
+    <stateLoc type="string" text="导航定位解状态" unit="0-未定位或无效解；1-单点定位；2-DGPS差分定位；4-定位RTK固定解；5-定位RTK浮点解；6-INS姿态解或GNSS/INS组合姿态解；7-里程计无效"/>
+    <stateDir type="string" text="导航定向解状态" unit="0-未定位或无效解；1-单点定位；2-DGPS差分定位；4-定向RTK固定解；5-定向RTK浮点解；6-INS姿态解或GNSS/INS组合姿态解"/>
+    <num type="string" text="主站天线收星数" unit="颗"/>
+    <delay type="string" text="差分延时" unit="秒"/>
+    <baseID type="string" text="轮速正常计数"/>
+    <distance type="string" text="轮速" unit="m/s"/>
+    <num1 type="string" text="轮速异常计数"/>
+    <roll type="string" text="导航横滚角" unit="度"/>
+    <AccN type="string" text="北向加速度" unit="米/秒2"/>
+    <AccE type="string" text="东向加速度" unit="米/秒2"/>
+    <AccG type="string" text="地向加速度" unit="米/秒2"/>
+    <lat type="string" text="GPS经度" unit="度"/>
+    <lon type="string" text="GPS纬度" unit="度"/>
+    <height type="string" text="GPS高度" unit="米"/>
+    <stateLoc type="string" text="GPS定位解状态" unit="0-未定位或无效解；1-单点定位；2-DGPS差分定位；4-定位RTK固定解；5-定位RTK浮点解"/>
+    <error type="string" text="故障码"/>
+    <lat1 type="string" text="GPS经度-偏置后" unit="度"/>
+    <lon1 type="string" text="GPS纬度-偏置后" unit="度"/>
+    <AccE1 type="string" text="东向速度" unit="米/秒"/>
+    <AccN1 type="string" text="北向速度" unit="米/秒"/>
+    <AccG1 type="string" text="地向速度" unit="米/秒"/>
+    <lonVar type="string" text="经度标准差" unit="米"/>
+    <latVar type="string" text="纬度标准差" unit="米"/>
+    <heightVar type="string" text="高度标准差" unit="米"/>
+    <GPSvel type="string" text="GPS速度" unit="米/秒"/>
+    <heightVar type="string" text="GPS速度航向" unit="度"/>
+    <GPSheading type="string" text="GPS双天线航向" unit="度"/>
+    <headingSTD type="string" text="GPS双天线航向标准差"/>
+    <CHECKSUM count="2" />
+  </pos>
+</protocol>

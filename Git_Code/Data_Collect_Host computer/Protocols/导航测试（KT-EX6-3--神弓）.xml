@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command1 class="Command" type="byte" text="自检" value="55 AA 01 00 01"/>
+	<command1 class="Command" type="byte" text="装订静态对准" value="55 AA 21 11 21 B0 32 3E 89 D2 DE 3A 89 D2 DE 3A 70 20 12 1C 20 9F B6 52 00 00 48 43 00 00 00 00 00 00 22 01 8C"/>
+	<command1 class="Command" type="byte" text="装订传递对准" value="55 AA 21 11 21 B0 32 3E 89 D2 DE 3A 89 D2 DE 3A 70 20 12 1C 20 9F B6 52 00 00 48 43 00 00 00 00 00 00 11 01 7B"/>
+	<command1 class="Command" type="byte" text="20ms传递信息" value="55 AA 39 29 00 00 20 41 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 70 20 12 1C 20 9F B6 52 00 00 48 43 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D3"/>
+	<command1 class="Command" type="byte" text="转导航" value="55 AA 01 31 32"/>
+	<command class="Command" type="byte" text="神弓" value="55 AA"/>
+	<pos class="Packet" text="宇通协议数据"  isString="true" separator=", *" endMark="0D 0A">
+		<HEADER value="$GPCHC" />
+		<ID type="string" text="week" />
+		<UTC type="string" text="tow" />
+		<yaw type="string" text="导航航向角" unit="度"/>
+		<pitch type="string" text="导航俯仰角" unit="度"/>
+		<roll type="string" text="导航横滚角" unit="度"/>
+		<GyroX type="string" text="X轴角速度" unit="度/秒"/>
+		<GyroY type="string" text="Y轴角速度" unit="度/秒"/>
+		<GyroZ type="string" text="Z轴角速度" unit="度/秒"/>
+		<AccX type="string" text="X轴加速度" sacle="57.295779513" unit="米/秒2"/>
+		<AccY type="string" text="Y轴加速度" sacle="57.295779513" unit="米/秒2"/>
+		<AccZ type="string" text="Z轴加速度" sacle="57.295779513" unit="米/秒2"/>
+		<lat type="string" text="导航纬度" unit="度"/>
+		<lon type="string" text="导航经度" unit="度"/>
+		<height type="string" text="导航高度" unit="米"/>
+		<velocityN type="string" text="东向速度" unit="米/秒"/>
+		<velocityE type="string" text="北向速度" unit="米/秒"/>
+		<velocityG type="string" text="天向速度" unit="米/秒"/>
+		<velocity type="string" text="车辆速度" unit="米/秒"/>
+		<num type="string" text="主天线收星数" unit="颗"/>
+		<num type="string" text="从天线收星数" unit="颗"/>
+		<status type="string" text="状态位"/>
+		<delay type="string" text="差分延时" unit="秒"/>
+		<error type="string" text="故障码" unit="秒"/>
+	<CHECKSUM count="2"/>
+</pos>
+	<pos1 class="Packet" text="6-3神弓自检反馈数据" lenth="14">
+		<HEADER value="55 AA 0A"/>
+		<cmd type="byte" text="命令字"/>
+		<result type="byte" text="自检结果"/>
+		<resultGyro type="float" text="加速度计自检结果" unit="g" />
+		<resultAcce type="float" text="陀螺仪自检结果" unit="度" />
+		<CHECKSUM start="2" end="12" count="1"/>
+	</pos1>
+	<pos2 class="Packet" text="6-3神弓装订应答数据" lenth="37">
+		<HEADER value="55 AA 21"/>
+		<cmd type="byte" text="命令字" base="16"/>
+		<Heading type="float" text="装订航向角" scale="57.29578" uint="度"/>
+		<Fa type="float" text="装订俯仰角" scale="57.29578" uint="度"/>
+		<Gama type="float" text="装订横滚角" scale="57.29578" uint="度"/>
+		<Lati type="Int32" text="纬度" scale="8.381903171539306640625e-8" unit="度"/>
+		<Longi type="Int32" text="经度" scale="8.381903171539306640625e-8" unit="度"/>
+		<Alti type="float" text="高度" unit="米"/>
+		<Rx type="Int16" text="杆臂X" scale="0.01" uint="米" />
+		<Ry type="Int16" text="杆臂Y" scale="0.01" uint="米" />
+		<Rz type="Int16" text="杆臂Z" scale="0.01" uint="米" />
+		<Mode type="byte" text="对准模式"/>
+		<State type="byte" text="状态位"/>
+		<CHECKSUM start="2" end="35" count="1"/>
+	</pos2>
+	<pos3 class="Packet" text="6-3神弓传递对准反馈数据" lenth="64">
+		<HEADER value="55 AA 3C"/>
+		<cmd type="byte" text="命令字" base="16"/>
+		<time type="UInt32" text="精对准时间"/>
+		<Q0 type="float" text="Q0" />
+		<Q1 type="float" text="Q1" />
+		<Q2 type="float" text="Q2" />
+		<Q3 type="float" text="Q3" />
+		<detaX type="float" text="X陀螺漂移" />
+		<detaY type="float" text="Y陀螺漂移" />
+		<detaZ type="float" text="Z陀螺漂移" />
+		<yaw type="float" text="航向角" scale="57.29578" unit="度"/>
+		<pitch type="float" text="俯仰角" scale="57.29578" unit="度"/>
+		<roll type="float" text="横滚角" scale="57.29578" unit="度"/>
+		<Rx type="float" text="杆臂X" uint="米" />
+		<Ry type="float" text="杆臂Y" uint="米" />
+		<Rz type="float" text="杆臂Z" uint="米" />
+		<tmp type="Int16" text="温度" scale="0.005" unit="度"/>
+		<status type="byte" text="对准结束状态"/>
+		<CHECKSUM start="2" end="62" count="1"/>
+	</pos3>
+	<pos4 class="Packet" text="6-3神弓开始对准反馈数据" lenth="5">
+		<HEADER value="55 AA 01"/>
+		<cmd type="byte" text="命令字" base="16"/>
+		<CHECKSUM start="2" end="3" count="1"/>
+	</pos4>
+	<pos5 class="Packet" text="6-3神弓导航数据" lenth="89">
+		<HEADER value="55 AA 55"/>
+		<cmd type="byte" text="命令字" base="16"/>
+		<time type="UInt32" text="导航时间"/>
+		<yaw type="UInt16" text="航向角" scale="0.005729578" unit="度"/>
+		<roll type="Int16" text="横滚角" scale="0.005729578" unit="度"/>
+		<pitch type="Int16" text="俯仰角" scale="0.005729578" unit="度"/>
+		<vd type="Int16" text="地向速度" scale="0.0625" unit="米/秒"/>
+		<vn type="Int16" text="北向速度" scale="0.0625" unit="米/秒"/>
+		<ve type="Int16" text="东向速度" scale="0.0625" unit="米/秒"/>
+		<Lati type="Int32" text="纬度" scale="8.381903171539306640625e-8" unit="度"/>
+		<Alti type="Int32" lenth="3" text="高度" scale="0.1" unit="米"/>
+		<Longi type="Int32" text="经度" scale="8.381903171539306640625e-8" unit="度"/>
+		<gryX type="float" text="陀螺X" scale="57.29578" unit="度"/>
+		<gryY type="float" text="陀螺Y" scale="57.29578" unit="度"/>
+		<gryZ type="float" text="陀螺Z" scale="57.29578" unit="度"/>
+		<accX type="float" text="加速度X" unit="g"/>
+		<accY type="Int32" lenth="3" scale="0.00001" text="加速度Y" unit="g"/>
+		<accZ type="Int32" lenth="3" scale="0.00001" text="加速度Z" unit="g"/>
+		<vd2 type="Int16" text="组合地向速度" scale="0.0625" unit="米/秒"/>
+		<vn2 type="Int16" text="组合北向速度" scale="0.0625" unit="米/秒"/>
+		<ve2 type="Int16" text="组合东向速度" scale="0.0625" unit="米/秒"/>
+		<Lati2 type="Int32" text="纬度" scale="8.381903171539306640625e-8" unit="度"/>
+		<Alti2 type="Int32" lenth="3" text="高度" scale="0.1" unit="米"/>
+		<Longi2 type="Int32" text="经度" scale="8.381903171539306640625e-8" unit="度"/>
+		<Q0 type="float" text="Q0" />
+		<Q1 type="float" text="Q1" />
+		<Q2 type="float" text="Q2" />
+		<Q3 type="float" text="Q3" />
+		<tmp type="Int16" text="温度" scale="0.005" unit="度"/>
+		<CHECKSUM start="2" end="87" count="1"/>
+	</pos5>
+</protocol>

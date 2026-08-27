@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+  <pos class="Packet" text="宇通协议数据"  isString="true" separator=", *" endMark="0D 0A">
+    <HEADER value="$GPCHC" />
+    <ID type="string" text="week" />
+    <UTC type="string" text="tow" />
+    <yaw type="string" text="导航航向角" unit="度"/>
+    <pitch type="string" text="导航俯仰角" unit="度"/>
+    <roll type="string" text="导航横滚角" unit="度"/>
+    <GyroX type="string" text="X轴角速度" unit="度/秒"/>
+    <GyroY type="string" text="Y轴角速度" unit="度/秒"/>
+    <GyroZ type="string" text="Z轴角速度" unit="度/秒"/>
+    <AccX type="string" text="X轴加速度" sacle="57.295779513" unit="米/秒2"/>
+    <AccY type="string" text="Y轴加速度" sacle="57.295779513" unit="米/秒2"/>
+    <AccZ type="string" text="Z轴加速度" sacle="57.295779513" unit="米/秒2"/>
+    <lat type="string" text="导航纬度" unit="度"/>
+    <lon type="string" text="导航经度" unit="度"/>
+    <height type="string" text="海拔高" unit="米"/>
+    <velocityN type="string" text="东向速度" unit="米/秒"/>
+    <velocityE type="string" text="北向速度" unit="米/秒"/>
+    <velocityG type="string" text="天向速度" unit="米/秒"/>
+    <velocity type="string" text="车辆速度" unit="米/秒"/>
+    <num type="string" text="主天线收星数" unit="颗"/>
+    <num type="string" text="从天线收星数" unit="颗"/>
+    <status type="string" text="状态位"/>
+    <delay type="string" text="差分延时" unit="秒"/>
+    <error type="string" text="故障码" unit="秒"/>
+    <CHECKSUM count="2"/>
+  </pos>
+</protocol>

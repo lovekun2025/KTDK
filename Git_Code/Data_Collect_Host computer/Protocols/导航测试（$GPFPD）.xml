@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+  <pos class="Packet" text="GPFPD数据"  isString="true" separator=", *" endMark="0D 0A">
+    <HEADER value="$GPFPD" />
+    <week type="string" text="GPS周" />
+    <sec type="string" text="GPS周内秒" />
+    <yaw type="string" text="导航航向角" unit="度"/>
+    <pitch type="string" text="导航俯仰角" unit="度"/>
+    <roll type="string" text="导航横滚角" unit="度"/>
+    <lat type="string" text="导航纬度" unit="度"/>
+    <lon type="string" text="导航经度" unit="度"/>
+    <height type="string" text="海拔高" unit="米"/>
+    <ve type="string" text="东向速度" unit="米/秒"/>
+    <vn type="string" text="北向速度" unit="米/秒"/>
+    <vu type="string" text="地向速度" unit="米/秒"/>
+    <lenth type="string" text="基线长" unit="米/秒"/>
+    <num type="string" text="主站收星数" unit="颗"/>
+    <num1 type="string" text="从站收星数" unit="颗"/>
+    <status type="string" text="状态位"/>
+    <CHECKSUM count="2" />
+  </pos>
+</protocol>

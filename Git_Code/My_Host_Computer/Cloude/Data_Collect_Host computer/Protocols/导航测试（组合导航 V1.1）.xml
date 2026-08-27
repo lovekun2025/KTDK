@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command  class="Command" type="byte" text="关闭GNSS" value="EA 51 01 04 06 00 01 00 0C"/>
+	<command  class="Command" type="byte" text="打开GNSS" value="EA 51 01 04 06 00 00 00 0B"/>
+	<pos class="Packet" text="导航数据" lenth="61">
+		<HEADER value="EA 51 02 00" />
+		<len type="UInt16" text="帧长"/>
+		<count type="UInt16" text="帧计数"/>
+		<lat type="double" text="导航经度" scale="57.295779513" unit="度"/>
+		<lon type="double" text="导航纬度" scale="57.295779513" unit="度"/>
+		<height type="float" text="高程" unit="米"/>
+		<Vx type="float" text="东向速度" unit="米/秒"/>
+		<Vy type="float" text="北向速度" unit="米/秒"/>
+		<Vz type="float" text="天向速度" unit="米/秒"/>
+		<hangxiang type="float" text="导航航向角" scale="57.295779513" unit="度"/>
+		<fuyang type="float" text="导航俯仰角" scale="57.295779513"  unit="度"/>
+		<henggun type="float" text="导航横滚角" scale="57.295779513" unit="度"/>
+		<flag type="UInt16" text="状态位" unit="0-无效 1-准备 2-导航"/>
+		<flag1 type="float" text="距离误差比"/>
+		<flag2 type="UInt16" text="标定完成标志位"/>
+		<CHECKSUM start="2" end="59" count="1"/>
+	</pos>
+	<pos1 class="Packet" text="IMU数据" lenth="45">
+		<HEADER value="EA 51 01 02" />
+		<len type="UInt16" text="帧长" />
+		<lenth type="UInt16" text="帧计数"/>
+		<x type="Int32" text="陀螺X"/>
+		<y type="Int32" text="陀螺Y"/>
+		<z type="Int32" text="陀螺Z"/>
+		<Vx type="Int32" text="加速度表Vx"/>
+		<Vy type="Int32" text="加速度表Vy"/>
+		<Vz type="Int32" text="加速度表Vz"/>
+		<tem1 type="UInt16" text="备用" />
+		<tem2 type="UInt16" text="备用"/>
+		<tem3 type="UInt16" text="备用" />
+		<tem11 type="Int16" text="温度" scale="0.01"/>
+		<tem22 type="UInt16" text="同步标志" unit="1-GPS同步 0-无效"/>
+		<tem33 type="UInt16" text="备用" />
+		<CHECKSUM start="2" end="43" count="1" />
+	</pos1>
+	<pos2 class="Packet" text="GPS数据" lenth="70">
+		<HEADER value="EA 51 01 01" />
+		<len type="UInt16" text="帧长" />
+		<count type="UInt16" text="帧计数"/>
+		<flagGGA type="byte" text="GGA状态" />
+		<num type="byte" text="卫星数目" unit="个"/>
+		<s type="byte" text="龄期"/>
+		<GGA type="byte" text="GPGGA更新"/>
+		<RMC type="byte" text="GPRMC更新"/>
+		<PSAT type="byte" text="PASHR更新"/>
+		<year type="byte" text="年"/>
+		<mom type="byte" text="月"/>
+		<day type="byte" text="日"/>
+		<hour type="byte" text="时"/>
+		<min type="byte" text="分"/>
+		<sec type="float" text="秒"/>
+		<lon type="Int32" text="GPS经度" unit="度" scale="0.0000001"/>
+		<lat type="Int32" text="GPS纬度" unit="度" scale="0.0000001"/>
+		<height1 type="float" text="海拔高度" unit="米"/>
+		<height2 type="float" text="椭球高度"  unit="米"/>
+		<hangxiang type="float" text="速度航向" unit="度"/>
+		<vel type="float" text="速度" scale="1.852" unit="km/h"/>
+		<ci type="float" text="磁航角" unit="度"/>
+		<douHang type="float" text="双天线航向" unit="度"/>
+		<Hdop type="float" text="HDOP" />
+		<GGArec type="byte" text="GPGGA接收"/>
+		<RMCrec type="byte" text="GPRMC接收"/>
+		<PSATrec type="byte" text="PASHR接收"/>
+		<PSATrec1 type="byte" text="GPGST接收"/>
+		<PSATrec2 type="byte" text="GPGST更新"/>
+		<Reserved1 type="byte" text="备用"/>
+		<Reserved2 type="UInt16" text="备用"/>
+		<stat type="UInt16" text="接收机状态"/>
+		<CHECKSUM start="2" end="68" count="1" />
+	</pos2>
+	<pos3 class="Packet" text="速度数据" lenth="21">
+		<HEADER value="EA 51 05 02" />
+		<len type="UInt16" text="帧长" />
+		<lenth type="UInt16" text="帧计数"/>
+		<Vx type="float" text="前向速度" scale="3.6" unit="km/h" />
+		<Vy type="float" text="备用" />
+		<tem33 type="UInt32" text="档位" />
+		<CHECKSUM start="2" end="19" count="1" />
+	</pos3>
+	<pos4 class="Packet" text="四轮数据" lenth="38">
+		<HEADER value="EA 51 06 02" />
+		<len type="UInt16" text="帧长" />
+		<lenth type="UInt16" text="帧计数"/>
+		<Vx type="float" text="左前速度" scale="3.6" unit="km/h"/>
+		<Vx type="float" text="右前速度" scale="3.6" unit="km/h"/>
+		<Vx type="float" text="左后速度" scale="3.6" unit="km/h"/>
+		<Vx type="float" text="右后速度" scale="3.6" unit="km/h"/>
+		<Vx type="float" text="前轮均速度" scale="3.6" unit="km/h"/>
+		<Vx type="float" text="后轮均速度" scale="3.6" unit="km/h"/>
+		<Vx type="float" text="比例因子"/>
+		<tem33 type="byte" text="档位" />
+		<CHECKSUM start="2" end="36" count="1" />
+	</pos4>
+	<pos5 class="Packet" text="CAN数据" lenth="21">
+		<HEADER value="EA 51 01 03" />
+		<len type="UInt16" text="帧长" />
+		<lenth type="UInt16" text="帧计数"/>
+		<flagGGA type="byte" text="ID1" base="16"/>
+		<num type="byte" text="ID2" base="16"/>
+		<s type="byte" text="ID3" base="16"/>
+		<GGA type="byte" text="ID4" base="16"/>
+		<RMC type="byte" text="数据1" base="16"/>
+		<PSAT type="byte" text="数据2" base="16"/>
+		<year type="byte" text="数据3" base="16"/>
+		<mom type="byte" text="数据4" base="16"/>
+		<day type="byte" text="数据5" base="16"/>
+		<hour type="byte" text="数据6" base="16"/>
+		<min type="byte" text="数据7" base="16"/>
+		<sec type="byte" text="数据8" base="16"/>
+		<CHECKSUM start="2" end="19" count="1" />
+	</pos5>
+</protocol>

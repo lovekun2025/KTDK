@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<pos class="Packet" text="欧拉角数据" lenth="41">
+		<HEADER value="FF 5A 06"/>
+		<id type="byte" text="预留"/>
+		<len type="UInt16" text="帧长"/>
+		<time type="UInt32" text="预留"/>
+		<roll type="float" text="导航横滚角" scale="57.295779513" unit="度"/>
+		<pitch type="float" text="导航俯仰角" scale="57.295779513" unit="度"/>
+		<yaw type="float" text="导航航向角" scale="57.295779513" unit="度"/>
+		<reserved type="float" text="预留"/>
+		<reserved type="float" text="预留"/>
+		<reserved type="float" text="预留"/>
+		<reserved type="UInt32" text="预留"/>
+		<CHECKSUM start="2" end="37" CRC="CRC16-CCITT-R" count="2"/>
+	</pos>
+	<pos class="Packet" text="惯导数据" lenth="67">
+		<HEADER value="FF 5A 03"/>
+		<id type="byte" text="预留"/>
+		<len type="UInt16" text="帧长"/>
+		<time type="UInt32" text="预留"/>
+		<status type="UInt16" text="惯导状态"/>
+		<accX type="float" text="加速度X" unit="m/s2"/>
+		<accY type="float" text="加速度Y" unit="m/s2"/>
+		<accZ type="float" text="加速度Z" unit="m/s2"/>
+		<gryX type="float" text="陀螺X" unit="rad/s"/>
+		<gryY type="float" text="陀螺Y" unit="rad/s"/>
+		<gryZ type="float" text="陀螺Z" unit="rad/s"/>
+		<tmp type="float" text="温度" unit="度"/>
+		<reserved type="float" text="预留"/>
+		<reserved type="float" text="预留"/>
+		<reserved type="float" text="预留"/>
+		<reserved type="float" text="预留"/>
+		<reserved type="float" text="预留"/>
+		<reserved type="float" text="预留"/>
+		<CHECKSUM start="2" end="63" CRC="CRC16-CCITT-R" count="2"/>
+	</pos>
+</protocol>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<pos3 class="Packet" text="GBPVA显示" lenthStart="4" lenthSize="2" lenthAdd="4">
+		<HEADER value="EA 52 01 01" />
+		<len type="UInt16" text="帧长" />
+		<count type="UInt16" text="帧计数"/>
+		<time type="UInt32" text="年月日"/>
+		<time type="UInt32" scale="0.001" text="时分秒"/>
+		<lat type="double" text="导航经度" unit="度"/>
+		<lon type="double" text="导航纬度" unit="度"/>
+		<height type="float" text="高程" unit="米"/>
+		<Vx type="float" text="东向速度" unit="米/秒"/>
+		<Vy type="float" text="北向速度" unit="米/秒"/>
+		<Vz type="float" text="天向速度" unit="米/秒"/>
+		<hangxiang type="float" text="导航航向角" unit="度"/>
+		<fuyang type="float" text="导航俯仰角" unit="度"/>
+		<henggun type="float" text="导航横滚角" unit="度"/>
+		<Vx type="float" text="X速度" unit="米/秒"/>
+		<Vy type="float" text="Y速度" unit="米/秒"/>
+		<Vz type="float" text="Z速度" unit="米/秒"/>
+		<GyroX type="float" text="X轴角速度" unit="度/秒"/>
+		<GyroY type="float" text="Y轴角速度" unit="度/秒"/>
+		<GyroZ type="float" text="Z轴角速度" unit="度/秒"/>
+		<AccX type="float" text="X轴加速度" unit="度/秒2"/>
+		<AccY type="float" text="Y轴加速度" unit="度/秒2"/>
+		<AccZ type="float" text="Z轴加速度" unit="度/秒2"/>
+		<flag type="UInt32" text="状态位" />
+		<CHECKSUM start="2" end="Lenth-3"  CRC="CRC16-CCITT" count="2"/>
+	</pos3>
+</protocol>

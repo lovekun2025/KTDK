@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command  class="Command" type="byte" text="关闭GNSS" value="EA 51 01 04 06 00 01 00 0C"/>
+	<command  class="Command" type="byte" text="打开GNSS" value="EA 51 01 04 06 00 00 00 0B"/>
+	<pos class="Packet" text="导航数据" lenth="105">
+		<HEADER value="EA 51 01 00" />
+		<len type="UInt16" text="帧长"/>
+		<count type="UInt16" text="帧计数"/>
+		<lat type="double" text="导航经度" unit="度"/>
+		<lon type="double" text="导航纬度" unit="度"/>
+		<height type="float" text="高程" unit="米"/>
+		<Vx type="float" text="东向速度" unit="米/秒"/>
+		<Vy type="float" text="北向速度" unit="米/秒"/>
+		<Vz type="float" text="天向速度" unit="米/秒"/>
+		<hangxiang type="float" text="导航航向角" unit="度"/>
+		<fuyang type="float" text="导航俯仰角" unit="度"/>
+		<henggun type="float" text="导航横滚角" unit="度"/>
+		<flag type="UInt16" text="状态位" unit="0-无效 1-准备 2-导航"/>
+		<lat type="double" text="GPS经度" unit="度"/>
+		<lon type="double" text="GPS纬度" unit="度"/>
+		<height type="float" text="高程" unit="米"/>
+		<Vx type="float" text="东向速度" unit="米/秒"/>
+		<Vy type="float" text="北向速度" unit="米/秒"/>
+		<Vz type="float" text="天向速度" unit="米/秒"/>
+		<hangxiang type="float" text="方位角" unit="度"/>
+		<fuyang type="float" text="俯仰角" unit="度"/>
+		<henggun type="float" text="极化角" unit="度"/>
+		<fuyang type="float" text="tow" unit="度"/>
+		<flag type="UInt16" text="状态位" unit="0-无效 1-准备 2-导航"/>
+		<CHECKSUM start="2" end="103" count="1"/>
+	</pos>
+</protocol>

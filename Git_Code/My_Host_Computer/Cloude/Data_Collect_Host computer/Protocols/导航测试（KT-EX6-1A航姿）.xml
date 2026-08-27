@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<pos class="Packet" text="导航数据" byteEndian="big" lenth="45">
+		<HEADER value="AA 55"/>
+		<time type="byte" text="帧计数"/>
+		<x type="float" text="航向" unit="秒"/>
+		<y type="float" text="俯仰" unit="秒"/>
+		<z type="float" text="横滚" unit="秒"/>
+		<x type="float" text="陀螺X" unit="秒"/>
+		<y type="float" text="陀螺Y" unit="秒"/>
+		<z type="float" text="陀螺Z" unit="秒"/>
+		<Vx type="float" text="加速度表Vx" unit="m/s2"/>
+		<Vy type="float" text="加速度表Vy" unit="m/s2"/>
+		<Vz type="float" text="加速度表Vz" unit="m/s2"/>
+		<temp type="float" text="温度" unit="度"/>
+		<CHECKSUM start="0" end="43" count="1"/>
+	</pos>
+</protocol>

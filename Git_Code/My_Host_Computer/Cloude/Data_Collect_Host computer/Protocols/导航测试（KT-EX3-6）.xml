@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<pos class="Packet" text="导航数据" byteEndian="big" lenth="20">
+		<HEADER value="A6"/>
+		<Vx type="Int32" lenth="3" scale="0.00006103515625" text="X角速度" unit="度/秒"/>
+		<Vy type="Int32" lenth="3" scale="0.00006103515625" text="Y角速度" unit="度/秒"/>
+		<Vz type="Int32" lenth="3" scale="0.00006103515625" text="Z角速度" unit="度/秒"/>
+		<status type="byte" text="陀螺状态" unit="全0正常"/>
+		<Vx type="Int16" scale="0.00390625" text="X陀螺温度" unit="℃"/>
+		<Vy type="Int16" scale="0.00390625" text="Y陀螺温度" unit="℃"/>
+		<Vz type="Int16" scale="0.00390625" text="Z陀螺温度" unit="℃"/>
+		<CHECKSUM start="0" end="18" CRC="CRC8" count="1"/>
+	</pos>
+</protocol>

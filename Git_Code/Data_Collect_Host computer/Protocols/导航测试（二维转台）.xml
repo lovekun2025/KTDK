@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<pos class="Packet" text="转台数据" lenth="21">
+		<HEADER value="AA AA 15" />
+		<time type="byte" text="帧计数"/>
+		<pitch type="Int32" text="导航俯仰角" scale="1e-5" unit="度"/>
+		<pitch_v type="Int32" text="俯仰轴角速度" scale="1e-5" unit="度/秒"/>
+		<yaw type="Int32" text="导航航向角" scale="1e-5" unit="度"/>
+		<yaw_v type="Int32" text="航向轴角速度" scale="1e-5" unit="度/秒"/>
+		<CHECKSUM start="0" end="19" count="1"/>
+	</pos>
+</protocol>

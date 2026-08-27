@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<pos class="Packet" text="导航数据" lenth="31">
+		<HEADER value="AA 55"/>
+		<time1 type="UInt16" endian="big" text="帧计数" unit="秒"/>
+		<roll type="Int16" scale="0.001953125" endian="big" text="温度" unit="度"/>
+		<pitch type="Int32" scale="0.000001" endian="big" text="导航俯仰角" unit="度"/>
+		<yaw type="Int32" scale="0.000001" endian="big" text="导航航向角" unit="度"/>
+		<yaw type="Int32" scale="0.000001" endian="big" text="导航航向角" unit="度"/>
+		<Vx type="Int32" scale="0.000001" endian="big" text="X角速度" unit="度/秒"/>
+		<Vy type="Int32" scale="0.000001" endian="big" text="Y角速度" unit="度/秒"/>
+		<Vz type="Int32" scale="0.000001" endian="big" text="Z角速度" unit="度/秒"/>
+		<CHECKSUM start="0" end="29" count="1"/>
+	</pos>
+</protocol>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<pos class="Packet" text="导航数据" lenth="47">
+		<HEADER value="55 AA 02"/>
+		<time type="UInt16" text="帧计数"/>
+		<status type="byte" text="状态位" unit="1数据有效;2数据无效"/>
+		<yaw type="float" text="导航航向角" unit="度"/>
+		<pitch type="float" text="导航俯仰角" unit="度"/>
+		<roll type="float" text="导航横滚角" unit="度"/>
+		<GryX type="float" text="X角速度" unit="度/秒"/>
+		<GryY type="float" text="Y角速度" unit="度/秒"/>
+		<GryZ type="float" text="Z角速度" unit="度/秒"/>
+		<AccX type="float" text="X加速度" unit="m/s2"/>
+		<AccY type="float" text="Y加速度" unit="m/s2"/>
+		<AccZ type="float" text="Z加速度" unit="m/s2"/>
+		<temp type="float" text="温度" unit="℃"/>
+		<CHECKSUM start="2" end="45" count="1"/>
+	</pos>
+</protocol>

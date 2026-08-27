@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command  class="Command" type="byte" text="KT-EX6-222" value="AA 55"/>
+	<command  class="Command" type="byte" text="AHRS_ADCData" value="AA 55 00 00 07 00 80 87 00"/>
+	<command  class="Command" type="byte" text="AHRS_ClbHRData" value="AA 55 00 00 07 00 81 88 00"/>
+	<command  class="Command" type="byte" text="AHRS_QuatData" value="AA 55 00 00 07 00 82 89 00"/>
+	<command  class="Command" type="byte" text="AHRS_ClbData" value="AA 55 00 00 07 00 83 8A 00"/>
+	<command  class="Command" type="byte" text="AHRS_NMEA" value="AA 55 00 00 07 00 88 8F 00"/>
+	<command  class="Command" type="byte" text="SetOnRequestMode" value="AA 55 00 00 07 00 C1 C8 00"/>
+	<command  class="Command" type="byte" text="Stop" value="AA 55 00 00 07 00 FE 05 01"/>
+	<command  class="Command" type="byte" text="LoadAHRSPar" value="AA 55 00 00 07 00 40 47 00"/>
+	<command  class="Command" type="byte" text="ReadAHRSPar" value="AA 55 00 00 07 00 41 48 00"/>
+	<command  class="Command" type="byte" text="GetDevInfo" value="AA 55 00 00 07 00 12 19 00"/>
+	<command  class="Command" type="byte" text="Start2DClb" value="AA 55 00 00 07 00 21 28 00"/>
+	<command  class="Command" type="byte" text="Start3DClb" value="AA 55 00 00 07 00 23 2A 00"/>
+	<command  class="Command" type="byte" text="ExitClb" value="AA 55 00 00 07 00 FE 05 01"/>
+	<command  class="Command" type="byte" text="GetClbRes" value="AA 55 00 00 07 00 2F 36 00"/>
+	<command  class="Command" type="byte" text="ClearClb" value="AA 55 00 00 07 00 2A 31 00"/>
+	<pos class="Packet" text="AHRS Calibrated Data" lenthStart="4" lenthSize="2" lenthAdd="2">
+		<HEADER value="AA 55 01 83"/>
+		<yaw type="UInt16" text="帧长度"/>
+		<yaw type="UInt16" text="航向角" scale="0.01" unit="度"/>
+		<pitch type="Int16" text="俯仰角" scale="0.01" unit="度"/>
+		<roll type="Int16" text="横滚角" scale="0.01" unit="度"/>
+		<gryX type="Int16" text="陀螺X" scale="0.01" unit="度/秒"/>
+		<gryY type="Int16" text="陀螺Y" scale="0.01" unit="度/秒"/>
+		<gryZ type="Int16" text="陀螺Z" scale="0.01" unit="度/秒"/>
+		<accX type="Int16" text="加速度X" scale="0.000333333" unit="g"/>
+		<accY type="Int16" text="加速度Y" scale="0.000333333" unit="g"/>
+		<accZ type="Int16" text="加速度Z" scale="0.000333333" unit="g"/>
+		<magX type="Int16" text="磁力计X" scale="10.0" unit="nT"/>
+		<magY type="Int16" text="磁力计Y" scale="10.0" unit="nT"/>
+		<magZ type="Int16" text="磁力计Z" scale="10.0" unit="nT"/>
+		<rec type="UInt32" text="预留"/>
+		<usw type="UInt16" text="USW"/>
+		<VDC type="UInt16" text="电压" scale="0.01" unit="V"/>
+		<temp type="Int16" text="温度" scale="0.1" unit="℃"/>
+		<CHECKSUM start="2" end="Lenth-3" count="2"/>
+	</pos>
+	<pos class="Packet" text="AHRS Calibrated HR Data" lenthStart="4" lenthSize="2" lenthAdd="2">
+		<HEADER value="AA 55 01 81"/>
+		<yaw type="UInt16" text="帧长度"/>
+		<yaw type="Int32" text="航向角" scale="0.001" unit="度"/>
+		<pitch type="Int32" text="俯仰角" scale="0.001" unit="度"/>
+		<roll type="Int32" text="横滚角" scale="0.001" unit="度"/>
+		<gryX type="Int32" text="陀螺X" scale="0.00001" unit="度/秒"/>
+		<gryY type="Int32" text="陀螺Y" scale="0.00001" unit="度/秒"/>
+		<gryZ type="Int32" text="陀螺Z" scale="0.00001" unit="度/秒"/>
+		<accX type="Int32" text="加速度X" scale="0.000001" unit="g"/>
+		<accY type="Int32" text="加速度Y" scale="0.000001" unit="g"/>
+		<accZ type="Int32" text="加速度Z" scale="0.000001" unit="g"/>
+		<magX type="Int16" text="磁力计X" scale="10.0" unit="nT"/>
+		<magY type="Int16" text="磁力计Y" scale="10.0" unit="nT"/>
+		<magZ type="Int16" text="磁力计Z" scale="10.0" unit="nT"/>
+		<rec type="UInt32" text="预留"/>
+		<usw type="UInt16" text="USW"/>
+		<VDC type="UInt16" text="电压" scale="0.01" unit="V"/>
+		<temp type="Int16" text="温度" scale="0.1" unit="℃"/>
+		<CHECKSUM start="2" end="Lenth-3" count="2"/>
+	</pos>
+	<pos class="Packet" text="AHRS Quaternion Data" lenthStart="4" lenthSize="2" lenthAdd="2">
+		<HEADER value="AA 55 01 82"/>
+		<yaw type="UInt16" text="帧长度"/>
+		<yaw type="UInt16" text="航向角" scale="0.01" unit="度"/>
+		<pitch type="Int16" text="俯仰角" scale="0.01" unit="度"/>
+		<roll type="Int16" text="横滚角" scale="0.01" unit="度"/>
+		<gryX type="Int16" text="Lk0" scale="0.00001"/>
+		<gryY type="Int16" text="Lk1" scale="0.00001"/>
+		<gryZ type="Int16" text="Lk2" scale="0.00001"/>
+		<accX type="Int16" text="Lk3" scale="0.00001"/>
+		<accY type="Int64" text="预留"/>
+		<accZ type="Int32" text="预留"/>
+		<accZ1 type="Int16" text="预留"/>
+		<usw type="UInt16" text="USW"/>
+		<VDC type="UInt16" text="电压" scale="0.01" unit="V"/>
+		<temp type="Int16" text="温度" scale="0.1" unit="℃"/>
+		<CHECKSUM start="2" end="Lenth-3" count="2"/>
+	</pos>
+	<pos class="Packet" text="AHRS ADC Output Data" lenthStart="4" lenthSize="2" lenthAdd="2">
+		<HEADER value="AA 55 01 80"/>
+		<yaw type="UInt16" text="帧长度"/>
+		<yaw type="UInt16" text="航向角" scale="0.01" unit="度"/>
+		<pitch type="Int16" text="俯仰角" scale="0.01" unit="度"/>
+		<roll type="Int16" text="横滚角" scale="0.01" unit="度"/>
+		<gryX type="Int16" text="陀螺X" scale="0.01" unit="度/秒"/>
+		<gryY type="Int16" text="陀螺Y" scale="0.01" unit="度/秒"/>
+		<gryZ type="Int16" text="陀螺Z" scale="0.01" unit="度/秒"/>
+		<accX type="Int16" text="加速度X" scale="0.000333333" unit="g"/>
+		<accY type="Int16" text="加速度Y" scale="0.000333333" unit="g"/>
+		<accZ type="Int16" text="加速度Z" scale="0.000333333" unit="g"/>
+		<magX type="Int16" text="磁力计X" scale="10.0" unit="nT"/>
+		<magY type="Int16" text="磁力计Y" scale="10.0" unit="nT"/>
+		<magZ type="Int16" text="磁力计Z" scale="10.0" unit="nT"/>
+		<rec type="UInt32" text="预留"/>
+		<usw type="UInt16" text="USW"/>
+		<VDC type="UInt16" text="电压" scale="0.01" unit="V"/>
+		<temp type="Int16" text="温度" scale="0.1" unit="℃"/>
+		<CHECKSUM start="2" end="Lenth-3" count="2"/>
+	</pos>
+	<pos class="Packet" text="answer on ReadAHRSPar" lenthStart="4" lenthSize="2" lenthAdd="2">
+		<HEADER value="AA 55 01 41"/>
+		<yaw type="UInt16" text="帧长度"/>
+		<yaw type="UInt16" text="数据速率" unit="Hz"/>
+		<pitch type="Int16" text="初始对准时间" unit="秒"/>
+		<roll type="Int32" text="磁偏角" scale="0.01" unit="度"/>
+		<gryX type="Int32" text="经度" scale="0.0000001" unit="度"/>
+		<gryY type="Int32" text="纬度" scale="0.0000001" unit="度"/>
+		<gryZ type="Int32" text="高程" scale="0.01" unit="米"/>
+		<accX type="byte" text="年"/>
+		<accY type="byte" text="月"/>
+		<accZ type="byte" text="日"/>
+		<magX type="Int16" text="航向安装偏差角" scale="0.01" unit="度"/>
+		<magY type="Int16" text="俯仰安装偏差角" scale="0.01" unit="度"/>
+		<magZ type="Int16" text="横滚安装偏差角" scale="0.01" unit="度"/>
+		<rec type="Int16" text="杆臂1" scale="0.01" unit="m"/>
+		<usw type="Int16" text="杆臂2" scale="0.01" unit="m"/>
+		<VDC type="Int16" text="杆臂3" scale="0.01" unit="m"/>
+		<CHECKSUM start="2" end="Lenth-3" count="2"/>
+	</pos>
+	<pos class="Packet" text="宇通协议数据"  isString="true" separator=", *" endMark="0D 0A">
+		<HEADER value="$PAHR"/>
+		<pitch type="string" text="俯仰角" unit="度"/>
+		<roll type="string" text="横滚角" unit="度"/>
+		<yaw type="string" text="航向角" unit="度"/>
+		<temp type="string" text="温度" unit="℃"/>
+		<Volat type="string" text="电压" unit="V"/>
+		<usw type="string" text="USW"/>
+		<CHECKSUM count="2"/>
+	</pos>
+</protocol>

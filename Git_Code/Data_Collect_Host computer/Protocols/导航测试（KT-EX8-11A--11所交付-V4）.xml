@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command  class="Command" type="byte" text="11NAV(4)_KT-EX8-11A" value="AA"/>
+	<pos0 class="Packet" text="11所KT-EX8-11A数据" byteEndian="big" lenth="181">
+		<HEADER value="EB 90"/>
+		<count type="UInt16" text="计数"/>
+		<lon type="Int32" text="导航经度" scale="0.0000001" unit="度"/>
+		<lat type="Int32" text="导航纬度" scale="0.0000001" unit="度"/>
+		<hight type="Int32" text="导航高度" scale="0.01" unit="米"/>
+		<yaw type="Int32" text="导航航向角" scale="0.000001" unit="度"/>
+		<pitch type="Int32" text="导航俯仰角" scale="0.000001" unit="度"/>
+		<roll type="Int32" text="导航横滚角" scale="0.000001" unit="度"/>
+		<gryX type="Int32" text="惯组航向角速度" scale="0.000001" unit="度/秒"/>
+		<gryY type="Int32" text="惯组俯仰角速度" scale="0.000001" unit="度/秒"/>
+		<gryZ type="Int32" text="惯组横滚角速度" scale="0.000001" unit="度/秒"/>
+		<yaw type="Int32" text="基座航向角" scale="0.000001" unit="度"/>
+		<pitch type="Int32" text="基座俯仰角" scale="0.000001" unit="度"/>
+		<roll type="Int32" text="基座横滚角" scale="0.000001" unit="度"/>
+		<gryX type="Int32" text="基座航向角速度" scale="0.000001" unit="度/秒"/>
+		<gryY type="Int32" text="基座俯仰角速度" scale="0.000001" unit="度/秒"/>
+		<gryZ type="Int32" text="基座横滚角速度" scale="0.000001" unit="度/秒"/>
+		<accX type="Int32" text="X轴角速度" scale="0.000001" unit="度/秒"/>
+		<accY type="Int32" text="Y轴角速度" scale="0.000001" unit="度/秒"/>
+		<accZ type="Int32" text="Z轴角速度" scale="0.000001" unit="度/秒"/>
+		<accX type="Int32" text="X轴加速度" scale="0.000001" unit="米/秒2"/>
+		<accY type="Int32" text="Y轴加速度" scale="0.000001" unit="米/秒2"/>
+		<accZ type="Int32" text="Z轴加速度" scale="0.000001" unit="米/秒2"/>
+		<ve type="Int16" text="东向速度" scale="0.01" unit="米/秒"/>
+		<vn type="Int16" text="北向速度" scale="0.01" unit="米/秒"/>
+		<vu type="Int16" text="天向速度" scale="0.01" unit="米/秒"/>
+		<tmp type="Int16" text="温度" scale="0.01" unit="度"/>
+		<status type="byte" text="状态字" base="16" unit="0x03:对准;0x05:纯惯性;0x07:组合"/>
+		<fault type="byte" text="故障字" base="2" unit="Bit0:惯导数据不可用;Bit1:卫导数据不可用;Bit2:大气数据不可用;Bit3:转台数据不可用"/>
+		<UTC type="UInt32" text="UTC天毫秒"/>
+		<UTC type="UInt32" text="UTC日期" base="16"/>
+		<count type="UInt16" text="INS计数"/>
+		<lon type="Int32" text="GPS经度" scale="0.0000001" unit="度"/>
+		<lat type="Int32" text="GPS纬度" scale="0.0000001" unit="度"/>
+		<hight type="Int32" text="INS高度" scale="0.01" unit="米"/>
+		<yaw type="UInt16" text="INS航向角" scale="0.01" unit="度"/>
+		<pitch type="Int16" text="INS俯仰角" scale="0.01" unit="度"/>
+		<roll type="Int16" text="INS横滚角" scale="0.01" unit="度"/>
+		<ve type="Int16" text="INS东向速度" scale="0.01" unit="米/秒"/>
+		<vn type="Int16" text="INS北向速度" scale="0.01" unit="米/秒"/>
+		<vu type="Int16" text="INS天向速度" scale="0.01" unit="米/秒"/>
+		<status type="byte" text="INS状态"/>
+		<tick type="UInt16" text="INS时间间隔"/>
+		<count type="UInt16" text="吊舱计数"/>
+		<yaw type="UInt16" text="框架方位" scale="0.01" unit="度"/>
+		<pitch type="Int16" text="框架俯仰" scale="0.01" unit="度"/>
+		<tick type="UInt16" text="框架时间间隔"/>
+		<Cbn type="float" text="Cbn[0][0]"/>
+		<Cbn type="float" text="Cbn[0][1]"/>
+		<Cbn type="float" text="Cbn[0][2]"/>
+		<Cbn type="float" text="Cbn[1][0]"/>
+		<Cbn type="float" text="Cbn[1][1]"/>
+		<Cbn type="float" text="Cbn[1][2]"/>
+		<Cbn type="float" text="Cbn[2][0]"/>
+		<Cbn type="float" text="Cbn[2][1]"/>
+		<Cbn type="float" text="Cbn[2][2]"/>
+		<CHECKSUM start="2" end="178" count="1" />
+	</pos0>
+</protocol>

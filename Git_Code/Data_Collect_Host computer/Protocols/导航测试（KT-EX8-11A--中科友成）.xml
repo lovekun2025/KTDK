@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+    <command class="Command" type="byte" text="中科友成_KT-EX8-11A" value="55 AA"/>
+    <pos0 class="Packet" text="导航数据" lenth="41">
+        <HEADER value="EB 90"/>
+        <count type="byte" text="标识"/>
+        <count type="byte" text="长度"/>
+        <pitch type="Int16" text="导航俯仰角" scale="0.01" unit="度"/>
+        <roll type="Int16" text="导航横滚角" scale="0.01" unit="度"/>
+        <yaw type="UInt16" text="导航航向角" scale="0.01" unit="度"/>
+        <tmp type="Int16" text="温度" scale="0.01" unit="度"/>
+        <UTC type="UInt16" text="周"/>
+        <UTC type="UInt32" text="周秒" scale="0.001"/>
+        <lon type="Int32" text="导航经度" scale="0.000000083819031715393" unit="度"/>
+        <lat type="Int32" text="导航纬度" scale="0.000000083819031715393" unit="度"/>
+        <hight type="Int32" text="导航高度" scale="0.001" unit="米"/>
+        <count type="UInt32" text="计数"/>
+        <count type="UInt32" text="产品编号"/>
+        <status type="byte" text="状态字" base="16" unit="0x00:对准;0x07:纯惯性;0x0F:组合"/>
+        <CHECKSUM start="2" end="38" count="2"/>
+    </pos0>
+</protocol>

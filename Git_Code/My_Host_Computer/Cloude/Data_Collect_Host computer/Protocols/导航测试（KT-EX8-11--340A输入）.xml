@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command1  class="Command"  type="byte" text="13所" value="55 AA"/>
+	<pos0 class="Packet" text="340A输入数据" lenth="58">
+		<HEADER value="EB 90" />
+		<reserved type="UInt16" text="备用"/>
+		<gyroZ type="Int16" text="载体Z角速率" scale="0.0091552734375" unit="度/秒"/>
+		<gyroX type="Int16" text="载体X角速率" scale="0.0091552734375" unit="度/秒"/>
+		<gyroY type="Int16" text="载体Y角速率" scale="0.0091552734375" unit="度/秒"/>
+		<star type="byte" text="定位星数"/>
+		<pdop type="byte" text="PDOP"/>
+		<statusINS type="byte" text="主惯导状态" base="16" unit="0x11:组合;0x22:纯惯性;0x33:无效;0x44:对准"/>
+		<yaw type="UInt16" text="导航航向角" scale="0.01" unit="度"/>
+		<pitch type="Int16" text="导航俯仰角" scale="0.01" unit="度"/>
+		<roll type="Int16" text="导航横滚角" scale="0.01" unit="度"/>
+		<lon type="Int32" text="导航经度" scale="0.000000277777778" unit="度"/>
+		<lat type="Int32" text="导航纬度" scale="0.000000277777778" unit="度"/>
+		<hight type="Int16" text="导航高度" unit="米"/>
+		<reserved type="UInt16" text="备用"/>
+		<Hdg type="UInt16" text="地速方向" scale="0.01" unit="度"/>
+		<Vg type="UInt16" text="地速" scale="0.01" unit="米/秒"/>
+		<Vu type="Int16" text="天向速度" scale="0.006103515625" unit="米/秒"/>
+		<PosX type="byte" text="X杆臂" unit="米"/>
+		<PosY type="byte" text="Y杆臂" unit="米"/>
+		<PosZ type="byte" text="Z杆臂" unit="米"/>
+		<hightAir type="Int16" text="气压高度" unit="米"/>
+		<velX type="Int16" text="东向速度" scale="0.006103515625" unit="米/秒"/>
+		<velY type="Int16" text="北向速度" scale="0.006103515625" unit="米/秒"/>
+		<statusGps type="byte" text="北斗状态" base="16" unit="0x55:定位;0xAA:不定位"/>
+		<tow type="UInt32" text="UTC" unit="天毫秒"/>
+		<command type="byte" text="指令" base="16" unit="0x5A:开始对准;0xAB:重新对准;0x6A:开始标定"/>
+		<YawPod type="UInt16" text="方位框架" scale="0.01" unit="度"/>
+		<PitchPod type="Int16" text="俯仰框架" scale="0.01" unit="度"/>
+		<CHECKSUM start="0" end="55" count="1" />
+	</pos0>
+</protocol>

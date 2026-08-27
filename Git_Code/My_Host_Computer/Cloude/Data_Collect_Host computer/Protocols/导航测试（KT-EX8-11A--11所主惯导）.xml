@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command  class="Command" type="byte" text="11NAV(2)_KT-EX8-11A" value="AA"/>
+	<pos0 class="Packet" text="导航数据" lenth="60">
+		<HEADER value="90 EB" />
+		<count type="UInt16" text="长度"/>
+		<count type="UInt16" text="ID"/>
+		<count type="byte" text="数据有效标识"/>
+		<lon type="Int32" text="导航经度" scale="0.0000000838190317544" unit="度"/>
+		<lat type="Int32" text="导航纬度" scale="0.0000000419095158772" unit="度"/>
+		<hight type="Int32" text="导航高度" scale="0.001" unit="米"/>
+		<yaw type="Int16" text="导航航向角" scale="0.0054933317" unit="度"/>
+		<pitch type="Int16" text="导航俯仰角" scale="0.00274666585" unit="度"/>
+		<roll type="Int16" text="导航横滚角" scale="0.0054933317" unit="度"/>
+		<velX type="Int16" text="东向速度" scale="0.01562547685" unit="米/秒"/>
+		<velY type="Int16" text="北向速度" scale="0.01562547685" unit="米/秒"/>
+		<velZ type="Int16" text="天向速度" scale="0.01562547685" unit="米/秒"/>
+		<accX type="Int16" text="X轴角速度" scale="0.0152592547" unit="度/秒"/>
+		<accY type="Int16" text="Y轴角速度" scale="0.0152592547" unit="度/秒"/>
+		<accZ type="Int16" text="Z轴角速度" scale="0.0152592547" unit="度/秒"/>
+		<accX type="Int16" text="X轴加速度" scale="0.0152592547" unit="米/秒2"/>
+		<accY type="Int16" text="Y轴加速度" scale="0.0152592547" unit="米/秒2"/>
+		<accZ type="Int16" text="Z轴加速度" scale="0.0152592547" unit="米/秒2"/>
+		<gryX type="UInt16" text="年" unit="度/秒"/>
+		<gryX type="byte" text="月" unit="度/秒"/>
+		<gryX type="byte" text="日" unit="度/秒"/>
+		<gryX type="byte" text="时" unit="度/秒"/>
+		<gryX type="byte" text="分" unit="度/秒"/>
+		<gryX type="byte" text="秒" unit="度/秒"/>
+		<gryX type="UInt16" text="毫秒" unit="度/秒"/>
+		<CHECKSUM start="0" end="56" count="2"/>
+	</pos0>
+</protocol>

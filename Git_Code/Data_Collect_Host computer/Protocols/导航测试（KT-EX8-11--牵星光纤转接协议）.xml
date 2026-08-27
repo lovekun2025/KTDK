@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command1  class="Command"  type="byte" text="13所" value="55 AA"/>
+	<pos0 class="Packet" text="牵星转接55AA" lenth="80">
+		<HEADER value="55 AA"/>
+		<year type="byte" text="帧长"/>
+		<reserved type="byte" text="帧号"/>
+		<gyroZ type="Int32" text="帧计数"/>
+		<gyroX type="byte" text="卫星模式及状态"/>
+		<gyroY type="byte" text="系统状态"/>
+		<star type="byte" text="状态字"/>
+		<yaw type="Int32" text="导航航向角" scale="0.00000277777778" unit="度"/>
+		<pitch type="Int32" text="导航俯仰角" scale="0.00000277777778" unit="度"/>
+		<roll type="Int32" text="导航横滚角" scale="0.00000277777778" unit="度"/>
+		<month type="byte" text="年"/>
+		<month type="byte" text="月"/>
+		<day type="byte" text="日"/>
+		<month type="byte" text="故障字"/>
+		<hight type="Int32" text="GPS高度" scale="0.01" unit="米"/>
+		<lat type="Int32" text="GPS纬度" scale="0.00000277777778" unit="度"/>
+		<lon type="Int32" text="GPS经度" scale="0.00000277777778" unit="度"/>
+		<Hdg type="Int32" text="北速" scale="0.001" unit="米/秒"/>
+		<Hdg type="Int32" text="天速" scale="0.001" unit="米/秒"/>
+		<Hdg type="Int32" text="东速" scale="0.001" unit="米/秒"/>
+		<Hdg type="Int32" text="UTC天秒" unit="ms"/>
+		<CHECKSUM start="2" end="78" count="1" />
+	</pos0>
+</protocol>

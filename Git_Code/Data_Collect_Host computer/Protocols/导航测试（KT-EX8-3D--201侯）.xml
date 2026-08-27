@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<pos class="Packet" text="导航数据" lenth="58">
+		<HEADER value="BD DB 0B" />
+		<roll type="Int16" text="导航横滚角" scale="0.010986328125" unit="度"/>
+		<pitch type="Int16" text="导航俯仰角" scale="0.010986328125"  unit="度"/>
+		<yaw type="Int16" text="导航航向角" scale="0.010986328125" unit="度"/>
+		<gyroX type="Int16" text="陀螺X" scale="0.0091552734375"/>
+		<gyroY type="Int16" text="陀螺Y" scale="0.0091552734375"/>
+		<gyroZ type="Int16" text="陀螺Z" scale="0.0091552734375"/>
+		<accX type="Int16" text="加表x" scale="0.0003662109375"/>
+		<accY type="Int16" text="加表y" scale="0.0003662109375"/>
+		<accZ type="Int16" text="加表z" scale="0.0003662109375"/>
+		<lat type="Int32" text="导航纬度" scale="0.0000001" unit="度"/>
+		<lon type="Int32" text="导航经度" scale="0.0000001" unit="度"/>
+		<height type="Int32" text="高程"  scale="0.001" unit="米"/>
+		<vy type="Int16" text="北向速度" scale="0.0030517578125" unit="米/秒"/>
+		<vx type="Int16" text="东向速度" scale="0.0030517578125"  unit="米/秒"/>
+		<vu type="Int16" text="地向速度" scale="0.0030517578125" unit="米/秒"/>
+		<status type="byte" text="导航状态位" base="16" unit="0x0F:导航;0xF0:GPS无数据;0x00:准备"/>
+		<statusRTK type="byte" text="RTK状态位"/>
+		<reserved type="Int32" lenth="3" text="Reserved"/>
+		<status type="UInt16" text="状态位" unit="62:导航;51:对准;50:准备"/>
+		<gpsVel type="Int16" text="GPS速度" scale="0.01" unit="米/秒"/>
+		<speed type="Int16" text="车速" scale="0.01" unit="米/秒"/>
+		<heading type="UInt16" text="双天线航向" scale="0.01" unit="度"/>
+		<time type="UInt32" text="时间"/>
+		<type type="byte" text="数据类型"/>
+		<CHECKSUM start="0" end="56" CRC="CRC8-XOR" count="1"/>
+	</pos>
+</protocol>

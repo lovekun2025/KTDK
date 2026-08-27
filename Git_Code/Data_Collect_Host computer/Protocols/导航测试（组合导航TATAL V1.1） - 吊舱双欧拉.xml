@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command class="Command" type="byte" text="输入指令" value="A5 5A 06 00 DC 01 E3 AA"/>
+	<command class="Command" type="byte" text="关闭GNSS" value="EA 51 01 04 06 00 01 00 0C"/>
+	<command class="Command" type="byte" text="打开GNSS" value="EA 51 01 04 06 00 00 00 0B"/>
+	<command class="Command" type="byte" text="13所" value="55 AA"/>
+	<command class="Command" type="byte" text="13所地垂" value="55 AA"/>
+	<command class="Command" type="byte" text="205所_KT-EX8-11" value="55 AA"/>
+	<pos class="Packet" text="地垂数据" lenthStart="4" lenthSize="2" lenthAdd="3">
+		<HEADER value="EA 51 01 05"/>
+		<len type="UInt16" text="帧长度"/>
+		<count type="UInt16" text="帧计数"/>
+		<lon type="Int32" text="导航经度" scale="0.0000001" unit="度"/>
+		<lat type="Int32" text="导航纬度" scale="0.0000001" unit="度"/>
+		<hight type="float" text="导航高度" unit="米"/>
+		<magYaw type="UInt16" text="磁航向角" scale="0.01" unit="度"/>
+		<yaw type="UInt16" text="基座航向角" scale="0.01" unit="度"/>
+		<pitch type="Int16" text="基座俯仰角" scale="0.01" unit="度"/>
+		<roll type="Int16" text="基座横滚角" scale="0.01" unit="度"/>
+		<velX type="Int16" text="东向速度" scale="0.01" unit="米/秒"/>
+		<velY type="Int16" text="北向速度" scale="0.01" unit="米/秒"/>
+		<velZ type="Int16" text="天向速度" scale="0.01" unit="米/秒"/>
+		<status type="UInt16" text="导航状态位"/>
+		<RangeRatio type="UInt16" text="交付导航状态位"/>
+		<calib type="UInt16" text="标定标志位"/>
+		<count type="UInt16" text="IMU帧计数"/>
+		<gryX type="float" text="X轴角速度" unit="度/秒"/>
+		<gryY type="float" text="Y轴角速度" unit="度/秒"/>
+		<gryZ type="float" text="Z轴角速度" unit="度/秒"/>
+		<accX type="float" text="X轴加速度" unit="米/秒2"/>
+		<accY type="float" text="Y轴加速度" unit="米/秒2"/>
+		<accZ type="float" text="Z轴加速度" unit="米/秒2"/>
+		<temp type="Int16" text="温度" scale="0.01" unit="℃"/>
+		<tick type="UInt16" text="IMU时间间隔"/>
+		<PPS type="UInt16" text="GPS_PPS"/>
+		<count type="UInt16" text="GPS帧计数"/>
+		<lon type="Int32" text="GPS经度" scale="0.0000001" unit="度"/>
+		<lat type="Int32" text="GPS纬度" scale="0.0000001" unit="度"/>
+		<hight type="float" text="GPS高度" unit="米"/>
+		<status type="byte" text="GPS状态位"/>
+		<age type="byte" text="龄期"/>
+		<num type="byte" text="卫星数"/>
+		<hdop type="byte" text="HDOP" scale="0.1"/>
+		<week type="UInt16" text="week"/>
+		<tow type="UInt32" text="tow" scale="0.001"/>
+		<course type="UInt16" text="速度航向" scale="0.01" unit="度"/>
+		<week type="Int16" text="主惯导俯仰" scale="0.01" unit="米/秒"/>
+		<velX type="Int16" text="GPS东向速度" scale="0.01" unit="米/秒"/>
+		<velY type="Int16" text="GPS北向速度" scale="0.01" unit="米/秒"/>
+		<velZ type="Int16" text="GPS天向速度" scale="0.01" unit="米/秒"/>
+		<tow type="UInt16" text="主惯导航向" scale="0.01" unit="度"/>
+		<tow type="Int16" text="主惯导横滚" scale="0.01"/>
+		<tick type="UInt16" text="GPS时间间隔"/>
+		<tick type="UInt16" text="预留"/>
+		<count type="UInt16" text="磁计数"/>
+		<magX type="float" text="外框方位角" unit="度"/>
+		<magY type="float" text="内框方位角" unit="度/秒"/>
+		<magZ type="float" text="外框俯仰角" unit="度"/>
+		<air type="float" text="内框俯仰角" unit="度/秒"/>
+		<tick type="UInt16" text="框架时间间隔"/>
+		<tick type="UInt16" text="预留"/>
+		<count type="UInt16" text="INS帧计数"/>
+		<lon type="Int32" text="GPS经度" scale="0.0000001" unit="度"/>
+		<lat type="Int32" text="GPS纬度" scale="0.0000001" unit="度"/>
+		<hight type="float" text="INS高度" unit="米"/>
+		<week type="UInt16" text="weekIns"/>
+		<tow type="UInt32" text="towIns" scale="0.001"/>
+		<yaw type="UInt16" text="方位角" scale="0.01" unit="度"/>
+		<pitch type="Int16" text="俯仰角" scale="0.01" unit="度"/>
+		<roll type="Int16" text="极化角" scale="0.01" unit="度"/>
+		<velX type="Int16" text="INS东向速度" scale="0.01" unit="米/秒"/>
+		<velY type="Int16" text="INS北向速度" scale="0.01" unit="米/秒"/>
+		<velZ type="Int16" text="INS天向速度" scale="0.01" unit="米/秒"/>
+		<status type="UInt16" text="INS状态位"/>
+		<num type="UInt16" text="卫星数"/>
+		<Reserved type="UInt16" text="预留"/>
+		<yawErr type="float" text="导航航向角" unit="度"/>
+		<pitchErr type="float" text="导航俯仰角" unit="度"/>
+		<rollErr type="float" text="导航横滚角" unit="度"/>
+		<counter type="UInt16" text="MEMS航向purins" scale="0.01" unit="度"/>
+		<roll type="Int16" text="MEMS俯仰purins" scale="0.01" unit="度"/>
+		<velX type="Int16" text="MEMS横滚purins" scale="0.01" unit="度"/>
+		<counter type="UInt16" text="MEMS航向" scale="0.01" unit="度"/>
+		<roll type="Int16" text="MEMS俯仰" scale="0.01" unit="度"/>
+		<velX type="Int16" text="MEMS横滚" scale="0.01" unit="度"/>
+		<counter type="float" text="MEMS航向安装偏差" unit="度"/>
+		<roll type="float" text="MEMS俯仰安装偏差" unit="度"/>
+		<velX type="float" text="MEMS横滚安装偏差" unit="度"/>
+		<counter type="float" text="主惯导航向安装偏差" unit="度"/>
+		<roll type="float" text="主惯导俯仰安装偏差" unit="度"/>
+		<velX type="float" text="主惯导横滚安装偏差" unit="度"/>
+		<counter type="float" text="交叉耦合XY" unit="度"/>
+		<roll type="float" text="交叉耦合XZ" unit="度"/>
+		<velX type="float" text="交叉耦合YZ" unit="度"/>
+		<counter type="float" text="标定航向方差" unit="度"/>
+		<roll type="float" text="标定俯仰方差" unit="度"/>
+		<velX type="float" text="标定横滚方差" unit="度"/>
+		<counter type="float" text="X陀螺零偏" unit="度"/>
+		<roll type="float" text="Y陀螺零偏" unit="度"/>
+		<velX type="float" text="Z陀螺零偏" unit="度"/>
+		<CHECKSUM start="2" end="Lenth-2" count="1"/>
+	</pos>
+</protocol>

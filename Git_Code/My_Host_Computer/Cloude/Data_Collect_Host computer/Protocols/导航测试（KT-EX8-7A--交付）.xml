@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<command  class="Command" type="byte" text="输入指令" value="A5 5A 06 00 DC 01 E3 AA"/>
+	<command  class="Command" type="byte" text="北斗P码" value="A5 5A 06 00 DC 01 E3 AA"/>
+	<pos class="Packet" text="导航数据" lenth="70">
+		<HEADER value="AA 55"/>
+		<status type="byte" text="状态位" unit="70准备;60快速对准;65正常对准;66空中对准;01纯惯;00组合"/>	
+		<time type="UInt32" text="时标" unit="秒" scale="0.001"/>
+		<num type="byte" text="卫星数目" unit="个"/>
+		<lat type="Int32" text="导航经度" unit="度" scale="0.00000027777778"/>
+		<lon type="Int32" text="导航纬度" unit="度" scale="0.00000027777778"/>
+		<height type="Int16" text="导航高程" unit="米+300"/>
+		<pitch type="Int16" text="导航俯仰角" unit="度" scale="0.01"/>
+		<yaw type="UInt16" text="导航航向角" unit="度" scale="0.01"/>
+		<roll type="Int16" text="导航横滚角" unit="度" scale="0.01"/>
+		<Ve type="Int16" text="东向速度" unit="米/秒" scale="0.006103515625"/>
+		<Vn type="Int16" text="北向速度" unit="米/秒" scale="0.006103515625"/>
+		<Vu type="Int16" text="天向速度" unit="米/秒" scale="0.006103515625"/>
+		<GryZ type="Int16" text="Z轴角速度" unit="度/秒" scale="0.00457763671875"/>
+		<GryY type="Int16" text="Y轴角速度" unit="度/秒" scale="0.00457763671875"/>
+		<GryX type="Int16" text="X轴角速度" unit="度/秒" scale="0.00457763671875"/>
+		<AccX type="Int16" text="X轴加速度" unit="米/秒2" scale="0.00360107421875"/>
+		<AccY type="Int16" text="Y轴加速度" unit="米/秒2" scale="0.00360107421875"/>
+		<AccZ type="Int16" text="Z轴加速度" unit="米/秒2" scale="0.00360107421875"/>
+		<lon1 type="Int32" text="GPS经度" unit="度" scale="0.00000027777778"/>
+		<lat1 type="Int32" text="GPS纬度" unit="度" scale="0.00000027777778"/>
+		<height1 type="Int16" text="GPS高程" unit="米+300"/>
+		<tow type="UInt32" text="GPS周秒"/>
+		<pps type="byte" text="秒脉冲标记"/>
+		<avi type="byte" text="北斗数据有效标志"/>
+		<statusBD type="byte" text="北斗状态字"/>
+		<statusData type="byte" text="数据有效标志" base="16" unit="0x11组合;0x22纯惯;0x33无效;0x44对准"/>
+		<temp type="sbyte" text="温度"/>
+		<err type="UInt16" text="故障字" base="2"/>
+		<bdLock type="byte" text="BM单元编码状态" unit="0x00:无编码方案;0x01:正式码;0x02:测试码"/>
+		<BMTYPE type="byte" text="加注信息类型" base="16" unit="0x00:B3频点PRM加注有限期;0x01:B1频点PRM加注有限期;0x02:BM单元加注有效期;0x10:无PRM、BM单元加注"/>
+		<PYEAR type="byte" text="P码截止(年)"/>
+		<PMONTH type="byte" text="P码截止(月)"/>
+		<PDAY type="byte" text="P码截止(日)"/>
+		<reseverd type="byte" text="BM单元自毁标识" unit="0x00:默认;0xAA:成功;0x55:失败"/>
+		<CHECKSUM start="0" end="68" count="1"/>
+	</pos>
+	<pos1 class="Packet" text="IMU数据" lenth="45">
+		<HEADER value="EA 51 01 02"/>
+		<len type="UInt16" text="帧长"/>
+		<lenth type="UInt16" text="帧计数"/>
+		<x type="Int32" scale="0.000007633587786" text="陀螺X" unit="度/秒"/>
+		<y type="Int32" scale="0.000007633587786" text="陀螺Y" unit="度/秒"/>
+		<z type="Int32" scale="0.000007633587786" text="陀螺Z" unit="度/秒"/>
+		<Vx type="Int32" scale="0.000004785784111328" text="加速度X" unit="米/秒2"/>
+		<Vy type="Int32" scale="0.000004785784111328" text="加速度Y" unit="米/秒2"/>
+		<Vz type="Int32" scale="0.000004785784111328" text="加速度Z" unit="米/秒2"/>
+		<tem1 type="UInt16" text="时间间隔" unit="ms"/>
+		<tem2 type="UInt16" text="气压接收计数"/>
+		<tem3 type="UInt16" text="气压高度" unit="m"/>
+		<tem11 type="Int16" text="温度" scale="0.01" unit="摄氏度"/>
+		<tem22 type="UInt16" text="同步标志" unit="1-GPS同步 0-无效"/>
+		<tem33 type="UInt16" text="备用"/>
+		<CHECKSUM start="2" end="43" count="1"/>
+	</pos1>
+	<pos2 class="Packet" text="GPS数据" lenth="70">
+		<HEADER value="EA 51 01 01"/>
+		<len type="UInt16" text="帧长"/>
+		<count type="UInt16" text="帧计数"/>
+		<flagGGA type="byte" text="GGA状态" />
+		<num type="byte" text="卫星数目" unit="个"/>
+		<s type="byte" text="龄期"/>
+		<GGA type="byte" text="GGA更新"/>
+		<RMC type="byte" text="RMC更新"/>
+		<PSAT type="byte" text="DHV更新"/>
+		<year type="byte" text="年"/>
+		<mom type="byte" text="月"/>
+		<day type="byte" text="日"/>
+		<hour type="byte" text="时"/>
+		<min type="byte" text="分"/>
+		<sec type="float" text="秒"/>
+		<lon type="UInt32" text="GPS经度" unit="度" scale="0.0000001"/>
+		<lat type="UInt32" text="GPS纬度" unit="度" scale="0.0000001"/>
+		<height1 type="float" text="海拔高度" unit="米"/>
+		<height2 type="float" text="椭球高度"  unit="米"/>
+		<hangxiang type="float" text="速度航向" unit="度"/>
+		<vel type="float" text="速度" scale="1.852" unit="km/h"/>
+		<ci type="float" text="天向速度" unit="m/s"/>
+		<douHang type="float" text="周秒" unit="秒"/>
+		<Hdop type="float" text="HDOP"/>
+		<GGArec type="byte" text="GGA接收"/>
+		<RMCrec type="byte" text="RMC接收"/>
+		<PSATrec type="byte" text="DHV接收"/>
+		<TimeRec type="byte" text="TIME接收"/>
+		<TimeUpdate type="byte" text="TIME更新"/>
+		<Reserved1 type="byte" text="Reserved"/>
+		<tick type="UInt16" text="机载北斗数据接收时间间隔"/>
+		<stat type="UInt16" text="接收机状态"/>
+		<CHECKSUM start="2" end="68" count="1"/>
+	</pos2>
+</protocol>

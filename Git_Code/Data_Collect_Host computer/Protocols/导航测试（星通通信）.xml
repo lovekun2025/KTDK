@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<pos class="Packet" text="导航数据" lenth="32">
+		<HEADER value="55 AA"/>
+		<status type="byte" text="状态位" unit="1数据有效;2数据无效"/>
+		<time type="UInt32" text="时间戳" unit="毫秒"/>
+		<yaw type="float" text="导航航向角" unit="度"/>
+		<pitch type="float" text="导航俯仰角" unit="度"/>
+		<roll type="float" text="导航横滚角" unit="度"/>
+		<GryZ type="float" text="方位角速度" unit="度/秒"/>
+		<GryY type="float" text="俯仰角速度" unit="度/秒"/>
+		<GryX type="float" text="横滚角速度" unit="度/秒"/>
+		<CHECKSUM start="2" end="30" count="1"/>
+	</pos>
+</protocol>

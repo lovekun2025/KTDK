@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+  <pos class="Packet" text="GNGGA数据" isString="true" separator=", *" endMark="0D 0A">
+    <HEADER value="$GNGGA" />
+	<UTCtime type="string" text="GPS时间" unit="秒"/>
+	<lat type="string" text="GPS纬度" unit="ddmm.mmmmm"/>
+	<N-S type="string" text="南北纬" unit="N北S南"/>
+	<lon type="string" text="GPS经度" unit="ddmm.mmmmm"/>
+	<W-E type="string" text="东西经" unit="W西E东"/>
+	<status type="string" text="定位状态" unit="0:未定位;1，2，3:有效"/>
+	<num type="string" text="卫星数目" unit="0-12"/>
+	<Hoop type="string" text="水平精度"/>
+	<MSL type="string" text="MSL幅度" unit="m"/>
+	<m1 type="string" text="单位" unit="m"/>
+	<high type="string" text="大地高" unit="m"/>
+	<m2 type="string" text="单位" unit="m"/>
+	<time type="string" text="差分时间"/>
+	<ID type="string" text="差分ID"/>
+    <CHECKSUM count="2"/>
+  </pos>
+</protocol>

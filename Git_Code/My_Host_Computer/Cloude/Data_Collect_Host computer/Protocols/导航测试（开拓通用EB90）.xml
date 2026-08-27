@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<pos class="Packet" text="航姿数据" lenth="70">
+		<HEADER value="EB 90 43 02"/>
+		<accX type="float" text="X角速度" unit="度/秒"/>
+		<accY type="float" text="Y角速度" unit="度/秒"/>
+		<accZ type="float" text="Z角速度" unit="度/秒"/>
+		<gyroX type="float" text="X加速度" unit="g"/>
+		<gyroY type="float" text="Y加速度" unit="g"/>
+		<gyroZ type="float" text="Z加速度" unit="g"/>
+		<temp type="float" text="温度" unit="℃"/>
+		<yaw type="float" text="航向角" unit="度"/>
+		<pitch type="float" text="俯仰角" unit="度"/>
+		<roll type="float" text="横滚角" unit="度"/>
+		<yaw type="float" text="INS航向角" unit="度"/>
+		<pitch type="float" text="INS俯仰角" unit="度"/>
+		<roll type="float" text="INS横滚角" unit="度"/>
+		<yaw type="float" text="导航航向角" unit="度"/>
+		<pitch type="float" text="导航俯仰角" unit="度"/>
+		<roll type="float" text="导航横滚角" unit="度"/>
+		<counter type="byte" text="帧计数"/>
+		<CHECKSUM start="0" end="68" count="1"/>
+	</pos>
+</protocol>

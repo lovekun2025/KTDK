@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProtocolModelClass selection="1">
+    <table protol_frame_tail="" protol_frame_head="AA55" edian_mode="0" protol_check_start="2" bin_text="0" protol_name="GyroRNorth" protol_frame_fre="100" protol_separator="" protol_framelength_pos="0" protol_check_byte="1" protol_check_pos="0" protol_check_type="sum">
+        <element index="0" unit="" description="帧计数" value="1" elementhead="0" min="0" max="65536" scale="1" name="FrameCnt" datatype="uint16_t" tip="3 FrameCnt 2 帧计数 UInt16" bytelength="2" offset="0"/>
+        <element index="1" unit="" description="时间间隔" value="2" elementhead="2" min="0" max="0" scale="1" name="TimeCnt" datatype="int16_t" tip="4 TimeCnt 2 IMU 时间间隔 Int16" bytelength="2" offset="0"/>
+        <element index="2" unit="s" description="寻北时间" value="3" elementhead="4" min="0" max="0" scale="0.01" name="XBCnt" datatype="uint16_t" tip="5 XBCnt 2 寻北时间 UInt16，分辨率 1/100，单位： s" bytelength="2" offset="0"/>
+        <element index="3" unit="" description="陀螺温度" value="4" elementhead="6" min="-70" max="100" scale="1" name="GyroTemp" datatype="float" tip="6 GyroTemp 4 陀螺温度 Float" bytelength="4" offset="0"/>
+        <element index="4" unit="" description="寻北指令" value="5" elementhead="10" min="0" max="0" scale="1" name="XBCommand" datatype="uint8_t" tip="7 XBCommand 1 寻北指令&#xa;初始化完成： 0XFF&#xa;寻北中： 1；&#xa;寻北结束且寻北值可用： 0" bytelength="1" offset="0"/>
+        <element index="5" unit="" description="电机初始化" value="6" elementhead="11" min="0" max="0" scale="1" name="MotorInit" datatype="uint8_t" tip="8 MotorInit 1 电机初始化 初始化完成： 1" bytelength="1" offset="0"/>
+        <element index="6" unit="g" description="加速度" value="7" elementhead="12" min="0" max="0" scale="1" name="accX" datatype="float" tip="9 Acc 4 加表加速度 Float，单位： g" bytelength="4" offset="0"/>
+        <element index="7" unit="°/s" description="角速度" value="8" elementhead="16" min="0" max="0" scale="1" name="Gyro" datatype="float" tip="10 Gyro 4 陀螺角速度 Float，单位： °/s" bytelength="4" offset="0"/>
+        <element index="8" unit="°/s" description="寻北值" value="9" elementhead="20" min="0" max="360" scale="0.01" name="XBAngle" datatype="uint16_t" tip="XBAngle 2 寻北值 UInt16，分辨率 1/100， 单位： °，范围： 0°～360°" bytelength="2" offset="0"/>
+        <element index="9" unit="°/s" description="俯仰角" value="10" elementhead="22" min="-20" max="20" scale="0.01" name="Pitch" datatype="int16_t" tip="Pitch 2 俯仰角 Int16，分辨率 1/100， 单位： °，范围： -20°～+20" bytelength="2" offset="0"/>
+        <element index="10" unit="°/s" description="横滚角" value="11" elementhead="24" min="0" max="0" scale="0.01" name="Roll" datatype="int16_t" tip="Roll 2 横滚角 Int16，分辨率 1/100， 单位： °，范围： -20°～+20°" bytelength="2" offset="0"/>
+        <element index="11" unit="°/s" description="电机位置" value="12" elementhead="26" min="0" max="0" scale="1" name="MotorStatus" datatype="uint8_t" tip="14 MotorStatus 1 转位机构位置&#xa;1： 位置 0°&#xa;2： 位置 90°&#xa;3： 位置 180°&#xa;4： 位置 270°" bytelength="1" offset="0"/>
+        <element index="12" unit="°/s" description="纬度" value="11" elementhead="27" min="0" max="0" scale="1" name="lat" datatype="float" tip="" bytelength="4" offset="0"/>
+    </table>
+    <table protol_frame_tail="" protol_frame_head="FEFD" edian_mode="1" protol_check_start="2" bin_text="0" protol_name="XIAOMENG" protol_frame_fre="2000" protol_separator="" protol_framelength_pos="0" protol_check_byte="1" protol_check_pos="0" protol_check_type="sum">
+        <element index="0" unit="" description="角度率X" value="" elementhead="0" min="0" max="0" scale="1" name="gx" datatype="mbyte_t" tip="" bytelength="3" offset="0"/>
+        <element index="1" unit="" description="角度率Y" value="" elementhead="3" min="0" max="0" scale="1" name="gy" datatype="mbyte_t" tip="tip" bytelength="3" offset="0"/>
+        <element index="2" unit="" description="计算值" value="" elementhead="6" min="0" max="0" scale="1" name="cnt" datatype="uint8_t" tip="tip" bytelength="1" offset="0"/>
+    </table>
+    <table protol_frame_tail="" protol_frame_head="A5" edian_mode="1" protol_check_start="0" bin_text="0" protol_name="ktimu" protol_frame_fre="2000" protol_separator="" protol_framelength_pos="0" protol_check_byte="4" protol_check_pos="0" protol_check_type="sum">
+        <element index="0" unit="" description="X轴角速度" value="" elementhead="0" min="0" max="0" scale="6.10352e-05" name="gx" datatype="mbyte_t" tip="X轴角速度" bytelength="3" offset="0"/>
+        <element index="1" unit="" description="Y轴角速度" value="" elementhead="3" min="0" max="0" scale="-6.10352e-05" name="gy" datatype="mbyte_t" tip="Y轴角速度" bytelength="3" offset="0"/>
+        <element index="2" unit="" description="Z轴角速度" value="" elementhead="6" min="0" max="0" scale="-6.10352e-05" name="gz" datatype="mbyte_t" tip="Z轴角速度" bytelength="3" offset="0"/>
+        <element index="3" unit="" description="陀螺状态" value="" elementhead="9" min="0" max="0" scale="1" name="gyrostatus" datatype="uint8_t" tip="陀螺状态" bytelength="1" offset="0"/>
+        <element index="4" unit="" description="X轴加速度" value="" elementhead="10" min="0" max="0" scale="3.8147e-06" name="ax" datatype="mbyte_t" tip="X轴加速度" bytelength="3" offset="0"/>
+        <element index="5" unit="" description="Y轴加速度" value="" elementhead="13" min="0" max="0" scale="-3.8147e-06" name="ay" datatype="mbyte_t" tip="Y轴加速度" bytelength="3" offset="0"/>
+        <element index="6" unit="" description="Z轴加速度" value="" elementhead="16" min="0" max="0" scale="-3.8147e-06" name="az" datatype="mbyte_t" tip="Z轴加速度" bytelength="3" offset="0"/>
+        <element index="7" unit="" description="加表状态" value="" elementhead="19" min="0" max="0" scale="1" name="accstatus" datatype="uint8_t" tip="加表状态" bytelength="1" offset="0"/>
+        <element index="8" unit="" description="陀螺X温度" value="" elementhead="20" min="0" max="0" scale="1" name="gxtemp" datatype="int16_t" tip="X轴陀螺温度" bytelength="2" offset="0"/>
+        <element index="9" unit="" description="陀螺Y温度" value="" elementhead="22" min="0" max="0" scale="1" name="gytemp" datatype="int16_t" tip="Y轴陀螺温度" bytelength="2" offset="0"/>
+        <element index="10" unit="" description="陀螺Z温度" value="" elementhead="24" min="0" max="0" scale="1" name="gztemp" datatype="int16_t" tip="Z轴陀螺温度" bytelength="2" offset="0"/>
+        <element index="11" unit="" description="陀螺温度状态" value="" elementhead="26" min="0" max="0" scale="1" name="gtstatus" datatype="uint8_t" tip="陀螺温度计状态" bytelength="1" offset="0"/>
+        <element index="12" unit="" description="加计X温度" value="" elementhead="27" min="0" max="0" scale="1" name="axtemp" datatype="int16_t" tip="加计X温度" bytelength="2" offset="0"/>
+        <element index="13" unit="" description="加计Y温度" value="" elementhead="29" min="0" max="0" scale="1" name="aytemp" datatype="int16_t" tip="加计Y温度" bytelength="2" offset="0"/>
+        <element index="14" unit="" description="加计Z温度" value="" elementhead="31" min="0" max="0" scale="1" name="aztemp" datatype="int16_t" tip="加计Z温度" bytelength="2" offset="0"/>
+        <element index="15" unit="" description="加计温度状态" value="" elementhead="33" min="0" max="0" scale="1" name="atstatus" datatype="uint8_t" tip="加计温度状态" bytelength="1" offset="0"/>
+        <element index="16" unit="" description="帧计数器" value="" elementhead="34" min="0" max="0" scale="1" name="count" datatype="uint8_t" tip="帧计数器" bytelength="1" offset="0"/>
+        <element index="17" unit="" description="延时" value="" elementhead="35" min="0" max="0" scale="1" name="delay" datatype="uint16_t" tip="延时" bytelength="2" offset="0"/>
+    </table>
+    <table protol_frame_tail="" protol_frame_head="FF5A0300" edian_mode="0" protol_check_start="2" bin_text="0" protol_name="IMU" protol_frame_fre="100" protol_separator="" protol_framelength_pos="0" protol_check_byte="2" protol_check_pos="0" protol_check_type="sum">
+        <element index="0" unit="" description="帧计数" value="" elementhead="0" min="0" max="0" scale="1" name="cnt" datatype="uint16_t" tip="" bytelength="2" offset="0"/>
+        <element index="1" unit="" description="时间" value="" elementhead="2" min="0" max="0" scale="1" name="TIME" datatype="uint32_t" tip="tip" bytelength="4" offset="0"/>
+        <element index="2" unit="" description="惯导状态" value="" elementhead="6" min="0" max="0" scale="1" name="imustatus" datatype="uint16_t" tip="tip" bytelength="2" offset="0"/>
+        <element index="3" unit="" description="加计X" value="" elementhead="8" min="0" max="0" scale="0.102041" name="ay" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="4" unit="" description="加计Y" value="" elementhead="12" min="0" max="0" scale="0.102041" name="ax" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="5" unit="" description="加计Z" value="" elementhead="16" min="0" max="0" scale="-0.102041" name="az" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="6" unit="" description="角速度X" value="" elementhead="20" min="0" max="0" scale="1" name="gy" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="7" unit="" description="角速度Y" value="" elementhead="24" min="0" max="0" scale="1" name="gx" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="8" unit="" description="角速度Z" value="" elementhead="28" min="0" max="0" scale="-1" name="gz" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="9" unit="" description="气压高度计" value="" elementhead="32" min="0" max="0" scale="1" name="temp" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="10" unit="" description="DeltaX速度" value="" elementhead="36" min="0" max="0" scale="1" name="DeltaX" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="11" unit="" description="DeltaY速度" value="" elementhead="40" min="0" max="0" scale="1" name="DeltaY" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="12" unit="" description="DeltaZ速度" value="" elementhead="44" min="0" max="0" scale="1" name="DeltaZ" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="13" unit="" description="DeltaX角速度" value="" elementhead="48" min="0" max="0" scale="1" name="DeltaX1" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="14" unit="" description="DeltaY角速度" value="" elementhead="52" min="0" max="0" scale="1" name="DeltaY1" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="15" unit="" description="DeltaZ角速度" value="" elementhead="56" min="0" max="0" scale="1" name="DeltaZ1" datatype="float" tip="tip" bytelength="4" offset="0"/>
+    </table>
+    <table protol_frame_tail="" protol_frame_head="EB904302" edian_mode="0" protol_check_start="0" bin_text="0" protol_name="Biaoding" protol_frame_fre="1000" protol_separator="" protol_framelength_pos="0" protol_check_byte="1" protol_check_pos="0" protol_check_type="sum">
+        <element index="0" unit="" description="X轴角速度" value="" elementhead="0" min="0" max="0" scale="1" name="gx" datatype="float" tip="" bytelength="4" offset="0"/>
+        <element index="1" unit="" description="Y轴角速度" value="" elementhead="4" min="0" max="0" scale="1" name="gy" datatype="float" tip="弧度" bytelength="4" offset="0"/>
+        <element index="2" unit="" description="Z轴角速度" value="" elementhead="8" min="0" max="0" scale="1" name="gz" datatype="float" tip="弧度" bytelength="4" offset="0"/>
+        <element index="3" unit="" description="X轴加速度" value="" elementhead="12" min="0" max="0" scale="1" name="ax" datatype="float" tip="米/秒2" bytelength="4" offset="0"/>
+        <element index="4" unit="" description="Y轴加速度" value="" elementhead="16" min="0" max="0" scale="1" name="ay" datatype="float" tip="米/秒2" bytelength="4" offset="0"/>
+        <element index="5" unit="" description="Z轴加速度" value="" elementhead="20" min="0" max="0" scale="1" name="az" datatype="float" tip="米/秒2" bytelength="4" offset="0"/>
+        <element index="6" unit="" description="加计温度" value="" elementhead="24" min="0" max="0" scale="1" name="accTemp" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="7" unit="" description="X轴地磁" value="" elementhead="28" min="0" max="0" scale="1" name="magX" datatype="float" tip="米/秒" bytelength="4" offset="0"/>
+        <element index="8" unit="" description="Y轴地磁" value="" elementhead="32" min="0" max="0" scale="1" name="magY" datatype="float" tip="米/秒" bytelength="4" offset="0"/>
+        <element index="9" unit="" description="Z轴地磁" value="" elementhead="36" min="0" max="0" scale="1" name="magZ" datatype="float" tip="米/秒" bytelength="4" offset="0"/>
+        <element index="10" unit="" description="滚转角" value="" elementhead="40" min="0" max="0" scale="1" name="roll" datatype="float" tip="" bytelength="4" offset="0"/>
+        <element index="11" unit="" description="俯仰角" value="" elementhead="44" min="0" max="0" scale="1" name="pitch" datatype="float" tip="度" bytelength="4" offset="0"/>
+        <element index="12" unit="" description="航向角" value="" elementhead="48" min="0" max="0" scale="1" name="yaw" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="13" unit="" description="陀螺1X轴" value="" elementhead="52" min="0" max="0" scale="1" name="gyro1X" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="14" unit="" description="陀螺1Y轴" value="" elementhead="56" min="0" max="0" scale="1" name="gyro1Y" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="15" unit="" description="陀螺1Z轴" value="" elementhead="60" min="0" max="0" scale="1" name="gyro1Z" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="16" unit="" description="计数" value="" elementhead="64" min="0" max="0" scale="1" name="status" datatype="uint8_t" tip="90:开始对准；171:重新对准" bytelength="1" offset="0"/>
+    </table>
+    <table protol_frame_tail="" protol_frame_head="55AA88" edian_mode="0" protol_check_start="2" bin_text="0" protol_name="OpticalFiber" protol_frame_fre="100" protol_separator="" protol_framelength_pos="0" protol_check_byte="1" protol_check_pos="0" protol_check_type="sum">
+        <element index="0" unit="" description="状态位" value="" elementhead="0" min="0" max="0" scale="1" name="flag1" datatype="int8_t" tip="" bytelength="1" offset="0"/>
+        <element index="1" unit="" description="陀螺X" value="" elementhead="1" min="0" max="0" scale="0.00763359" name="gy" datatype="int16_t" tip="" bytelength="2" offset="0"/>
+        <element index="2" unit="" description="陀螺Y" value="" elementhead="3" min="0" max="0" scale="0.00763359" name="gx" datatype="int16_t" tip="" bytelength="2" offset="0"/>
+        <element index="3" unit="" description="陀螺Z" value="" elementhead="5" min="0" max="0" scale="-0.00763359" name="gz" datatype="int16_t" tip="" bytelength="2" offset="0"/>
+        <element index="4" unit="" description="加计X" value="" elementhead="7" min="0" max="0" scale="0.000488281" name="ay" datatype="int16_t" tip="" bytelength="2" offset="0"/>
+        <element index="5" unit="" description="加计Y" value="" elementhead="9" min="0" max="0" scale="0.000488281" name="ax" datatype="int16_t" tip="" bytelength="2" offset="0"/>
+        <element index="6" unit="" description="加计Z" value="" elementhead="11" min="0" max="0" scale="-0.000488281" name="az" datatype="int16_t" tip="" bytelength="2" offset="0"/>
+        <element index="7" unit="" description="方位角" value="" elementhead="13" min="0" max="0" scale="57.3" name="ref_yaw" datatype="float" tip="" bytelength="4" offset="0"/>
+        <element index="8" unit="" description="俯仰角" value="" elementhead="17" min="0" max="0" scale="57.3" name="ref_pitch" datatype="float" tip="" bytelength="4" offset="0"/>
+        <element index="9" unit="" description="极化角" value="" elementhead="21" min="0" max="0" scale="57.3" name="ref_roll" datatype="float" tip="" bytelength="4" offset="0"/>
+    </table>
+    <table protol_frame_tail="" protol_frame_head="FF5A0600" edian_mode="0" protol_check_start="2" bin_text="0" protol_name="AHRS" protol_frame_fre="1000" protol_separator="" protol_framelength_pos="0" protol_check_byte="2" protol_check_pos="0" protol_check_type="sum">
+        <element index="0" unit="" description="计数" value="" elementhead="0" min="0" max="0" scale="1" name="cnt" datatype="uint16_t" tip="tip" bytelength="2" offset="0"/>
+        <element index="1" unit="" description="uTNav" value="" elementhead="2" min="0" max="0" scale="1" name="uTNav" datatype="uint32_t" tip="tip" bytelength="4" offset="0"/>
+        <element index="2" unit="" description="导航横滚角" value="" elementhead="6" min="0" max="0" scale="57.3" name="roll" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="3" unit="" description="导航俯仰角" value="" elementhead="10" min="0" max="0" scale="57.3" name="pitch" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="4" unit="" description="导航航向角" value="" elementhead="14" min="0" max="0" scale="57.3" name="yaw" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="5" unit="" description="滚转精度" value="" elementhead="18" min="0" max="0" scale="1" name="roll_prec" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="6" unit="" description="俯仰角度" value="" elementhead="22" min="0" max="0" scale="1" name="pitch_prec" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="7" unit="" description="航向精度" value="" elementhead="26" min="0" max="0" scale="1" name="yaw_prec" datatype="float" tip="tip" bytelength="4" offset="0"/>
+        <element index="8" unit="" description="状态" value="" elementhead="30" min="0" max="0" scale="1" name="status" datatype="uint32_t" tip="tip" bytelength="4" offset="0"/>
+    </table>
+</ProtocolModelClass>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+	<pos class="Packet" text="IMU数据" byteEndian="big" lenth="42">
+		<HEADER value="A5"/>
+		<gyroX type="Int32" lenth="3" scale="0.00006103515625" text="X角速度" unit="度/秒"/>
+		<gyroY type="Int32" lenth="3" scale="0.00006103515625" text="Y角速度" unit="度/秒"/>
+		<gyroZ type="Int32" lenth="3" scale="0.00006103515625" text="Z角速度" unit="度/秒"/>
+		<state type="byte" text="陀螺状态" unit="全0正常"/>
+		<accX type="Int32" lenth="3" scale="0.000003814697265625" text="X加速度" unit="g"/>
+		<accY type="Int32" lenth="3" scale="0.000003814697265625" text="Y加速度" unit="g"/>
+		<accZ type="Int32" lenth="3" scale="0.000003814697265625" text="Z加速度" unit="g"/>
+		<state type="byte" text="加表状态" unit="全0正常"/>
+		<gyroTempX type="Int16" scale="0.00390625" text="X陀螺温度" unit="℃"/>
+		<gyroTempY type="Int16" scale="0.00390625" text="Y陀螺温度" unit="℃"/>
+		<gyroTempZ type="Int16" scale="0.00390625" text="Z陀螺温度" unit="℃"/>
+		<state type="byte" text="陀螺温度状态" unit="全0正常"/>
+		<accTempX type="Int16" scale="0.00390625" text="X加表温度" unit="℃"/>
+		<accTempY type="Int16" scale="0.00390625" text="Y加表温度" unit="℃"/>
+		<accTempZ type="Int16" scale="0.00390625" text="Z加表温度" unit="℃"/>
+		<state type="byte" text="加表温度状态" unit="全0正常"/>
+		<time type="byte" text="帧计数"/>
+		<state type="Int16" text="延时" unit="us"/>
+		<CHECKSUM start="0" end="37" CRC="CRC32" count="4"/>
+	</pos>
+</protocol>

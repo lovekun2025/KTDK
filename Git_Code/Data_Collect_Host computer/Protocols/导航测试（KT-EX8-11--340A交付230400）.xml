@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<protocol>
+    <command1 class="Command" type="byte" text="13所" value="55 AA"/>
+    <command1 class="Command" type="byte" text="13所地垂" value="55 AA"/>
+    <pos0 class="Packet" text="导航数据" lenth="65">
+        <HEADER value="EB 90"/>
+        <count type="UInt16" text="计数"/>
+        <lon type="Int32" text="导航经度" scale="0.0000001" unit="度"/>
+        <lat type="Int32" text="导航纬度" scale="0.0000001" unit="度"/>
+        <hight type="Int32" text="导航高度" scale="0.01" unit="米"/>
+        <pitch type="Int16" text="导航俯仰角" scale="0.01" unit="度"/>
+        <roll type="Int16" text="导航横滚角" scale="0.01" unit="度"/>
+        <yaw type="UInt16" text="导航航向角" scale="0.01" unit="度"/>
+        <gryX type="Int32" text="X轴角速度" scale="0.00114591559" unit="度/秒"/>
+        <gryY type="Int32" text="Y轴角速度" scale="0.00114591559" unit="度/秒"/>
+        <gryZ type="Int32" text="Z轴角速度" scale="0.00114591559" unit="度/秒"/>
+        <accX type="Int32" text="X轴加速度" scale="0.00002" unit="米/秒2"/>
+        <accY type="Int32" text="Y轴加速度" scale="0.00002" unit="米/秒2"/>
+        <accZ type="Int32" text="Z轴加速度" scale="0.00002" unit="米/秒2"/>
+        <velX type="Int16" text="东向速度" scale="0.01" unit="米/秒"/>
+        <velY type="Int16" text="北向速度" scale="0.01" unit="米/秒"/>
+        <velZ type="Int16" text="天向速度" scale="0.01" unit="米/秒"/>
+        <status type="byte" text="状态字" base="16" unit="0x03:对准;0x05:纯惯性;0x07:组合"/>
+        <fault type="byte" text="故障字" base="2" unit="Bit0:惯导数据不可用;Bit1:卫导数据不可用"/>
+        <tmp type="sbyte" text="温度" unit="度"/>
+        <UTC type="UInt32" text="UTC天毫秒"/>
+        <velZ type="Int16" text="惯组俯仰" scale="0.01" unit="度"/>
+        <velZ type="Int16" text="惯组横滚" scale="0.01" unit="度"/>
+        <CHECKSUM start="0" end="62" count="1"/>
+    </pos0>
+</protocol>
