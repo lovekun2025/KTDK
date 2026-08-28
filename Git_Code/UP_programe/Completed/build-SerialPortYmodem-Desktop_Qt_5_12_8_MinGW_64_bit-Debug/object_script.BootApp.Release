@@ -1,0 +1,11 @@
+release/main.o
+release/imubootloader.o
+release/navbootloader.o
+release/widget.o
+release/YmodemFileReceive.o
+release/Ymodem.o
+release/YmodemFileTransmit.o
+release/moc_widget.o
+release/moc_navbootloader.o
+release/moc_YmodemFileReceive.o
+release/moc_YmodemFileTransmit.o

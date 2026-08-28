@@ -132,7 +132,7 @@ void PlotWidget::paintEvent(QPaintEvent *)
         if (s->frameCount > newestFrame) newestFrame = s->frameCount;
     }
     if (!haveSeries) {
-        QFont font = p.font(); font.setPointSize(9); p.setFont(font);
+        QFont font = p.font(); font.setPointSize(11); p.setFont(font);
         p.setPen(QColor("#7a8b96"));
         p.drawText(plotRect, Qt::AlignCenter, "在左侧勾选变量后开始实时绘图");
         return;
@@ -204,7 +204,7 @@ void PlotWidget::paintEvent(QPaintEvent *)
     m_viewWinSec = winSec;
 
     QFont font = p.font();
-    font.setPointSize(8);
+    font.setPointSize(10);
     p.setFont(font);
 
     // 网格 + Y 刻度
@@ -330,8 +330,8 @@ PlotWindow::PlotWindow(QWidget *parent, Qt::WindowFlags flags) : QWidget(parent,
 
     setStyleSheet(R"(
         QWidget { background:#1a242c; }
-        QLabel { background:transparent; color:#dce6ec; font-size:13px; }
-        QCheckBox { background:transparent; color:#dce6ec; font-size:13px; }
+        QLabel { background:transparent; color:#dce6ec; font-size:15px; }
+        QCheckBox { background:transparent; color:#dce6ec; font-size:15px; }
         QComboBox {
             background:#2e3c46; color:#e6eef2; border:1px solid #4a5b66;
             border-radius:4px; padding:4px 8px; min-height:22px;

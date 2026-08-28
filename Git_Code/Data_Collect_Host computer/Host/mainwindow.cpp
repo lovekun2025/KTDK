@@ -13,6 +13,8 @@
 #include <QPainter>
 #include <QPixmap>
 #include <QDebug>
+#include <QProcess>
+#include <QScrollArea>
 
 // 字节数转可读字符串
 static QString fmtBytes(quint64 b)
@@ -127,6 +129,11 @@ void MainWindow::setupMenus()
     connect(plot, &QAction::triggered, this, &MainWindow::openPlotWindow);
     ui->menu_2->addAction(plot);
 
+    // 工具：固件升级（外部调用 BootApp.exe）
+    QAction *boot = new QAction("固件升级...", this);
+    connect(boot, &QAction::triggered, this, &MainWindow::onLaunchBootApp);
+    ui->menu_2->addAction(boot);
+
     // 帮助：关于
     QAction *about = new QAction("关于", this);
     connect(about, &QAction::triggered, this, [this](){
@@ -232,38 +239,46 @@ void MainWindow::buildStatusBar()
 
 void MainWindow::applyStylesheet()
 {
+    // 全局基础字号 15px，界面更清晰
     setStyleSheet(R"(
         QMainWindow { background:#24313a; }
-        QMenuBar { background:#1c2830; color:#dce6ec; font-size:13px; border:none; }
-        QMenuBar::item { padding:4px 10px; }
+        QMenuBar { background:#1c2830; color:#dce6ec; font-size:15px; border:none; }
+        QMenuBar::item { padding:5px 12px; }
         QMenuBar::item:selected { background:#2e3c46; }
-        QMenu { background:#223039; color:#dce6ec; border:1px solid #3d515c; font-size:13px; }
-        QMenu::item { padding:5px 24px 5px 12px; }
+        QMenu { background:#223039; color:#dce6ec; border:1px solid #3d515c; font-size:15px; }
+        QMenu::item { padding:6px 28px 6px 14px; }
         QMenu::item:selected { background:#2e3c46; }
-        QStatusBar { background:#1c2830; color:#a9b8c2; font-size:12px; }
+        QStatusBar { background:#1c2830; color:#a9b8c2; font-size:14px; }
         QDockWidget { color:#dce6ec; }
-        QDockWidget::title { background:#1c2830; border:1px solid #3d515c; padding:5px 12px; font-size:13px; }
+        QDockWidget::title { background:#1c2830; border:1px solid #3d515c; padding:6px 14px; font-size:15px; }
         QComboBox {
             background:#2e3c46; color:#e6eef2; border:1px solid #4a5b66;
-            border-radius:4px; padding:4px 10px; min-height:24px; font-size:13px;
+            border-radius:4px; padding:5px 10px; min-height:26px; font-size:15px;
         }
         QComboBox:hover { border-color:#5e7280; }
         QComboBox QAbstractItemView {
-            background:#223039; color:#e6eef2; selection-background-color:#33434e; font-size:13px;
+            background:#223039; color:#e6eef2; selection-background-color:#33434e; font-size:15px;
         }
         QPushButton {
             background:#2e3c46; color:#e6eef2; border:1px solid #4a5b66;
-            border-radius:4px; padding:5px 14px; min-height:24px; font-size:13px;
+            border-radius:4px; padding:6px 14px; min-height:26px; font-size:15px;
         }
         QPushButton:hover { background:#37474f; border-color:#5e7280; }
         QPushButton:pressed { background:#28343d; }
         QLineEdit {
             background:#26333d; color:#e6eef2; border:1px solid #4a5b66;
-            border-radius:4px; padding:4px 8px; min-height:22px; font-size:13px;
+            border-radius:4px; padding:5px 8px; min-height:24px; font-size:15px;
         }
-        QCheckBox { color:#dce6ec; font-size:13px; }
-        QLabel { color:#dce6ec; font-size:13px; }
-        QToolTip { background:#223039; color:#dce6ec; border:1px solid #4a5b66; }
+        QCheckBox { color:#dce6ec; font-size:15px; }
+        QLabel { color:#dce6ec; font-size:15px; }
+        QToolTip { background:#223039; color:#dce6ec; border:1px solid #4a5b66; font-size:14px; }
+        QMessageBox { background:#223039; }
+        QMessageBox QLabel { color:#e6eef2; font-size:15px; }
+        QMessageBox QPushButton {
+            background:#2e3c46; color:#e6eef2; border:1px solid #4a5b66;
+            border-radius:4px; padding:6px 18px; min-height:26px; font-size:15px;
+        }
+        QMessageBox QPushButton:hover { background:#37474f; border-color:#5e7280; }
     )");
 }
 
@@ -326,7 +341,7 @@ void MainWindow::onProtocolLoaded(const ProtoXmlModel& model)
                         | QDockWidget::DockWidgetMovable
                         | QDockWidget::DockWidgetFloatable);
         dock->setWindowIcon(makeFrameIcon(i, title));
-        dock->setMinimumWidth(130);
+        dock->setMinimumWidth(146);
 
         AutoGridWidget* g = new AutoGridWidget();
         g->setHeaderTitle(title);
@@ -337,7 +352,14 @@ void MainWindow::onProtocolLoaded(const ProtoXmlModel& model)
         }
         g->setItems(names);
         g->setUnits(units);
-        dock->setWidget(g);
+
+        // 限高+滚动：内容超高时出现滚动条，帧框高度不会顶到串口号
+        QScrollArea* scroll = new QScrollArea();
+        scroll->setWidget(g);
+        scroll->setWidgetResizable(true);
+        scroll->setFrameShape(QFrame::NoFrame);
+        scroll->setStyleSheet("QScrollArea { background:transparent; border:none; }");
+        dock->setWidget(scroll);
 
         m_docks.append(dock);
         m_grids.append(g);
@@ -409,6 +431,49 @@ void MainWindow::onOpenConfigDialog()
     dlg->setAttribute(Qt::WA_DeleteOnClose);
     connect(dlg, &SerialConfigDialog::signalSerialConfig, this, &MainWindow::onSerialConfig);
     dlg->show();
+}
+
+// 工具 → 固件升级：外部调用 BootApp.exe（多位置查找）
+void MainWindow::onLaunchBootApp()
+{
+    QString appDir = QCoreApplication::applicationDirPath();
+    QStringList candidates;
+    candidates << appDir + "/BootApp.exe"                                  // Host.exe 同目录
+               << appDir + "/../Host_Release/BootApp.exe"                  // 工程发布目录
+               << appDir + "/Host_Release/BootApp.exe"
+               << appDir + "/../BootApp.exe"                               // 上一级
+               << QDir::currentPath() + "/BootApp.exe";                    // 当前工作目录
+
+    QString bootPath;
+    for (const QString &c : candidates) {
+        if (QFile::exists(c)) {
+            bootPath = QFileInfo(c).absoluteFilePath();
+            break;
+        }
+    }
+    if (bootPath.isEmpty()) {
+        QMessageBox::warning(this, "固件升级",
+            QString("未找到 BootApp.exe，已检查以下位置：\n%1\n\n"
+                    "请把 BootApp.exe 放到上位机 exe 同目录。")
+                .arg(candidates.join("\n")));
+        return;
+    }
+
+    // 已在运行则不再重复启动
+    if (m_bootProc && m_bootProc->state() != QProcess::NotRunning) {
+        QMessageBox::information(this, "固件升级", "BootApp 已在运行中");
+        return;
+    }
+
+    if (!m_bootProc) {
+        m_bootProc = new QProcess(this);
+    }
+    m_bootProc->setWorkingDirectory(QFileInfo(bootPath).absolutePath());
+    m_bootProc->start(bootPath);
+    if (!m_bootProc->waitForStarted(3000)) {
+        QMessageBox::warning(this, "固件升级",
+            QString("启动 BootApp.exe 失败：\n%1\n\n原因：%2").arg(bootPath, m_bootProc->errorString()));
+    }
 }
 
 void MainWindow::toggleSerial()
@@ -678,13 +743,31 @@ void MainWindow::parseRxBuffer()
             haveFrame = true;
         }
         else {
-            int frameLen = pkt.effectiveLen;
-            if (frameLen <= 0)
-                frameLen = pkt.headerLen + pkt.calcTotalByte + pkt.crcResultByteCnt;
+            // 二进制协议：计算帧长
+            int frameLen = 0;
+            if (pkt.isDynamicLen) {
+                // 动态帧长：需要先读取帧长字段
+                int needForLen = pkt.dynamicLenStart + pkt.dynamicLenSize;
+                if (m_rxBuffer.size() < needForLen)
+                    break; // 数据不足，等待更多
+
+                frameLen = ProtocolLoader::computeFrameLen(pkt, m_rxBuffer);
+                int minFrame = pkt.headerLen + pkt.crcResultByteCnt + 1;
+                if (frameLen < minFrame || frameLen > (1024 * 1024)) {
+                    m_rxBuffer.remove(0, 1); // 异常帧长，跳过1字节重同步
+                    progressed = true;
+                    continue;
+                }
+            } else {
+                frameLen = pkt.effectiveLen;
+                if (frameLen <= 0)
+                    frameLen = pkt.headerLen + pkt.calcTotalByte + pkt.crcResultByteCnt;
+            }
+
             if (frameLen <= 0)
                 break;
             if (m_rxBuffer.size() < frameLen)
-                break; // 帧不完整
+                break; // 帧不完整，等待更多数据
 
             QByteArray frameData = m_rxBuffer.left(frameLen);
             if (!ProtocolLoader::verifyChecksum(pkt, frameData)) {

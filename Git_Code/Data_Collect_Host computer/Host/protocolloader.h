@@ -88,6 +88,10 @@ struct ProtoPacket
     QByteArray headerRaw;     // 帧头字节（二进制 fromHex / 字符串 UTF-8）
     int headerLen = 0;
     int effectiveLen = 0;     // 可靠帧长：CHECKSUM end+count+1 优先，其次 lenth，再字段累加
+    bool isDynamicLen = false; // 是否为动态帧长协议
+    int dynamicLenStart = 0;   // 动态帧长字段在帧中的起始偏移
+    int dynamicLenSize = 0;    // 动态帧长字段占用字节数
+    int dynamicLenAdd = 0;     // 动态帧长修正值（加上读取到的长度得到总帧长）
 
     QList<ProtoField> fieldList;
     int calcTotalByte = 0;    // 字段累加字节（不含帧头/校验）
@@ -99,7 +103,7 @@ struct ProtoPacket
     // 校验参数
     CrcAlgorithmType crcType = CrcAlgorithmType::None;
     int crcStartOffset = 0;
-    int crcEndOffset = -1;    // <0 表示"全帧(不含校验字节)"
+    int crcEndOffset = -1;    // <0 表示"全帧(不含校验字节)"，-2 表示"动态计算(帧长-count-1)"
     int crcResultByteCnt = 0; // 校验结果占用字节数（在帧尾）
 };
 
@@ -127,6 +131,9 @@ public:
 
     // 统一加载入口：解析 → 覆盖全局模型 → 发信号（菜单项与文件对话框共用）
     void loadProtocolFile(const QString &fullFilePath);
+
+    // 动态帧长协议：从原始数据中读取帧长值并计算实际帧长
+    static int computeFrameLen(const ProtoPacket& pkt, const QByteArray& rawData);
 
     // 字节解析：把原始帧数据按字段定义转成显示值列表
     static QStringList parseFrameToValues(const ProtoPacket& pkt, const QByteArray& frameData);

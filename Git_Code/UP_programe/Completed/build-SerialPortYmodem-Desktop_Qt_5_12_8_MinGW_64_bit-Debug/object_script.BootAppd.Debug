@@ -1,0 +1,11 @@
+debug/main.o
+debug/imubootloader.o
+debug/navbootloader.o
+debug/widget.o
+debug/YmodemFileReceive.o
+debug/Ymodem.o
+debug/YmodemFileTransmit.o
+debug/moc_widget.o
+debug/moc_navbootloader.o
+debug/moc_YmodemFileReceive.o
+debug/moc_YmodemFileTransmit.o

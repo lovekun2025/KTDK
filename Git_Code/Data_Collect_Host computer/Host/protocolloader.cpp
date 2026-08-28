@@ -319,6 +319,12 @@ ProtoXmlModel ProtocolLoader::parseXmlFile(const QString &fullFilePath)
                  << " 字段字节:" << pkt.calcTotalByte
                  << " 校验:" << crcTypeToStr(pkt.crcType)
                  << " 校验字节:" << pkt.crcResultByteCnt;
+        if (pkt.isDynamicLen)
+        {
+            qDebug() << "      动态帧长: start=" << pkt.dynamicLenStart
+                     << " size=" << pkt.dynamicLenSize
+                     << " add=" << pkt.dynamicLenAdd;
+        }
     }
     return outModel;
 }
@@ -331,6 +337,18 @@ ProtoPacket ProtocolLoader::parseSinglePosNode(const QDomElement &posEle)
     pkt.frameIsString = (posEle.attribute("isString").compare("true", Qt::CaseInsensitive) == 0);
     pkt.separator = posEle.attribute("separator");
     pkt.endMark = posEle.attribute("endMark");
+
+    // 动态帧长属性
+    int ls = posEle.attribute("lenthStart", "-1").toInt();
+    int lsz = posEle.attribute("lenthSize", "0").toInt();
+    int la = posEle.attribute("lenthAdd", "0").toInt();
+    if (ls >= 0 && lsz > 0)
+    {
+        pkt.isDynamicLen = true;
+        pkt.dynamicLenStart = ls;
+        pkt.dynamicLenSize = lsz;
+        pkt.dynamicLenAdd = la;
+    }
 
     QString endian = posEle.attribute("byteEndian", "little").trimmed().toLower();
     pkt.isLittle = (endian != "big");
@@ -368,13 +386,36 @@ ProtoPacket ProtocolLoader::parseSinglePosNode(const QDomElement &posEle)
             if (pkt.crcResultByteCnt > 0 && pkt.crcType == CrcAlgorithmType::None)
                 pkt.crcType = CrcAlgorithmType::ADD8;
 
+            QString endAttr = subEle.attribute("end", "");
             int rawStart = subEle.attribute("start", "0").toInt();
-            int rawEnd   = subEle.attribute("end", "0").toInt();
-            if (rawStart == 0 && rawEnd == 0)
+            int rawEnd = 0;
+            bool endIsDynamic = false;
+
+            // 检查 end 是否为动态表达式（如 "Lenth-2" 或 "Len-2"）
+            if (!endAttr.isEmpty())
+            {
+                QString ea = endAttr.trimmed().toLower();
+                if (ea.startsWith("lenth") || ea.startsWith("len"))
+                {
+                    // 动态表达式：以帧长为基础计算
+                    endIsDynamic = true;
+                }
+                else
+                {
+                    rawEnd = endAttr.toInt();
+                }
+            }
+
+            if (rawStart == 0 && rawEnd == 0 && !endIsDynamic)
             {
                 // 未显式给出区间 → 全帧（不含校验字节），校验时按帧长计算
                 pkt.crcStartOffset = 0;
                 pkt.crcEndOffset = -1;
+            }
+            else if (endIsDynamic)
+            {
+                pkt.crcStartOffset = rawStart;
+                pkt.crcEndOffset = -2; // -2 表示动态计算：帧长 - count - 1
             }
             else
             {
@@ -398,8 +439,17 @@ ProtoPacket ProtocolLoader::parseSinglePosNode(const QDomElement &posEle)
 
     pkt.calcTotalByte = calcTotalByte;
 
-    // 可靠帧长：CHECKSUM 显式区间优先（end+count+1），其次 lenth，最后字段累加兜底
-    if (pkt.crcResultByteCnt > 0 && pkt.crcEndOffset >= 0)
+    // 可靠帧长计算
+    if (pkt.isDynamicLen)
+    {
+        // 动态帧长：effectiveLen 只是一个最小估算值（用于等待足够数据）
+        pkt.effectiveLen = pkt.headerLen + pkt.dynamicLenStart + pkt.dynamicLenSize + 256 + pkt.crcResultByteCnt;
+        // 设置一个合理的最大值上限，实际长度由 computeFrameLen 动态计算
+        // 先给一个基于字段累加的估算值作为最小等待长度
+        int minLen = pkt.headerLen + pkt.dynamicLenStart + pkt.dynamicLenSize + 1 + pkt.crcResultByteCnt;
+        if (pkt.effectiveLen < minLen) pkt.effectiveLen = minLen;
+    }
+    else if (pkt.crcResultByteCnt > 0 && pkt.crcEndOffset >= 0)
         pkt.effectiveLen = pkt.crcEndOffset + 1 + pkt.crcResultByteCnt;
     else if (pkt.frameTotalByte > 0)
         pkt.effectiveLen = pkt.frameTotalByte;
@@ -437,6 +487,24 @@ ProtoField ProtocolLoader::parseSingleFieldNode(const QDomElement &fieldEle)
                  << " 字段:" << f.tagName;
     }
     return f;
+}
+
+// ===================== 动态帧长计算 =====================
+int ProtocolLoader::computeFrameLen(const ProtoPacket& pkt, const QByteArray& rawData)
+{
+    if (!pkt.isDynamicLen) return pkt.effectiveLen;
+
+    int start = pkt.dynamicLenStart;
+    int size = pkt.dynamicLenSize;
+    int add = pkt.dynamicLenAdd;
+
+    if (start < 0 || size <= 0) return pkt.effectiveLen;
+    if (rawData.size() < start + size) return pkt.effectiveLen; // 数据不足，返回估算值
+
+    quint64 lenVal = readUInt(rawData.constData() + start, size, pkt.isLittle);
+    int totalLen = int(lenVal) + add;
+    if (totalLen <= 0) return pkt.effectiveLen;
+    return totalLen;
 }
 
 // ===================== 字节解析：原始帧 → 字段显示值 =====================
@@ -528,7 +596,10 @@ bool ProtocolLoader::verifyChecksum(const ProtoPacket& pkt, const QByteArray& fr
 
     int start = qMax(0, pkt.crcStartOffset);
     int end = pkt.crcEndOffset;
-    if (end < 0) end = n - cnt - 1;   // 默认全帧（不含校验字节）
+    if (end == -2)
+        end = n - 2;  // 动态：帧长 - 2（对应 "Lenth-2" 表达式）
+    else if (end < 0)
+        end = n - cnt - 1;   // 默认全帧（不含校验字节）
     if (end > n - 1) end = n - 1;
     if (start > end) return false;
 

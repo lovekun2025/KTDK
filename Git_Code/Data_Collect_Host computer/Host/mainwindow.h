@@ -18,16 +18,21 @@
 #include <QLabel>
 #include <QIcon>
 #include <QFile>
+#include <QAction>
+#include <QMenu>
+#include <QDockWidget>
+#include <QMessageBox>
 #include "serialconfigdialog.h"
 #include "dongtai.h"
 #include "protocolloader.h"
-#include "../../../../ccyclebuffer.h"
+#include "ccyclebuffer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 class PlotWindow;
+class QProcess;
 
 // 一帧待刷新的数据（显示值 + 数值）
 struct FrameUpdate
@@ -51,6 +56,7 @@ signals:
 private slots:
     void onOpenProtocolFile();                    // 文件→打开协议文件
     void onOpenConfigDialog();                    // 工具→串口设置
+    void onLaunchBootApp();                       // 工具→固件升级（外部调用 BootApp.exe）
     void toggleSerial();                          // 顶栏 打开/关闭串口
     void onSerialConfig(const SerialConfig& config);
     void onSerialReadyRead();
@@ -105,6 +111,8 @@ private:
     bool m_saving = false;
     QString m_saveDir;
     QList<QFile*> m_saveFiles;           // 与 m_grids 一一对应
+
+    QProcess *m_bootProc = nullptr;      // 固件升级子进程（BootApp.exe）
 
     void setupMenus();
     void buildTopBar();

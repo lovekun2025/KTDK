@@ -36,7 +36,7 @@ public:
         headerRow->addWidget(led);
 
         headerLabel = new QLabel("数据");
-        headerLabel->setStyleSheet("color:#ffffff; font-size:12px; font-weight:bold; background:transparent; border:none;");
+        headerLabel->setStyleSheet("color:#ffffff; font-size:14px; font-weight:bold; background:transparent; border:none;");
         headerLabel->setMinimumWidth(0);
         headerRow->addWidget(headerLabel);
 
@@ -95,7 +95,7 @@ public:
             : "background:#bfe9f2; border-radius:4px;");
         statusLabel->setText(active ? QString("接收中：%1Hz").arg(hz) : "空闲");
         statusLabel->setStyleSheet(QString(
-            "color:%1; font-size:10px; background:transparent; border:none;")
+            "color:%1; font-size:12px; background:transparent; border:none;")
             .arg(active ? "#ffffff" : "#e0f6fb"));
     }
 
@@ -105,12 +105,21 @@ protected:
     void resizeEvent(QResizeEvent *event) override
     {
         QWidget::resizeEvent(event);
-        // 每列约130px：宽度变化时自动增减列数，子框架实时换行
-        int newCols = qMax(1, width() / 130);
+        // 每列最小约130px(卡片130+间距6)：宽度变化时自动增减列数，子框架实时换行
+        int newCols = qMax(1, (width() - 16 + 6) / (130 + 6)); // 16=左右边距,6=列间距
         if (newCols != cols) {
             cols = newCols;
             createItems();
         }
+    }
+
+    // 关键：Dock 最小宽度只按"一个卡片宽+边距"计算，避免被当前列数总宽卡住，
+    // 这样缩小时列数才能持续减少、行数自动恢复
+    // 高度最小=一行卡片+header；内容超高由外层 QScrollArea 滚动，帧框不会顶到串口号
+    QSize minimumSizeHint() const override
+    {
+        int minH = 26 + 10 + 62; // header约26 + 上下边距10 + 一行卡片高
+        return QSize(130 + 16, qMax(100, minH));
     }
 
 private:
@@ -141,7 +150,7 @@ private:
             int col = i % cols;
 
             QWidget *box = new QWidget();
-            box->setMinimumSize(100, 48);
+            box->setMinimumSize(130, 62);
             box->setStyleSheet(
                 "QWidget { background-color:#0f3a46; border:2px solid #ffffff; border-radius:4px; }");
 
@@ -151,18 +160,18 @@ private:
 
             QLabel *title = new QLabel(itemList[i]);
             title->setWordWrap(false);
-            title->setStyleSheet("background:transparent; border:none; color:#d8f2f8; font-size:11px;");
+            title->setStyleSheet("background:transparent; border:none; color:#d8f2f8; font-size:14px;");
             title->setAlignment(Qt::AlignCenter);
 
             QLabel *val = new QLabel(m_values.value(i, "0"));
             val->setWordWrap(false);
-            val->setStyleSheet("background:transparent; border:none; color:#52dcff; font-size:13px; font-weight:bold;");
+            val->setStyleSheet("background:transparent; border:none; color:#52dcff; font-size:16px; font-weight:bold;");
             val->setAlignment(Qt::AlignCenter);
             val->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
             QLabel *unitLab = new QLabel(unitList.value(i));
             unitLab->setWordWrap(false);
-            unitLab->setStyleSheet("background:transparent; border:none; color:#a8dce6; font-size:9px;");
+            unitLab->setStyleSheet("background:transparent; border:none; color:#a8dce6; font-size:12px;");
             unitLab->setAlignment(Qt::AlignCenter);
 
             valueLabelList.append(val);
@@ -171,6 +180,8 @@ private:
             vbox->addWidget(unitLab);
             grid->addWidget(box, row, col);
         }
+
+        updateGeometry(); // 行数/列数变化后，让 Dock 重新应用最小高度
     }
 };
 
