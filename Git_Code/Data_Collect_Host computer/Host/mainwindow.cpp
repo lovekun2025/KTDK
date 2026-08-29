@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "plotwindow.h"
+#include "batchsendwindow.h"
 #include <QDockWidget>
 #include <QHBoxLayout>
 #include <QMessageBox>
@@ -15,6 +16,7 @@
 #include <QDebug>
 #include <QProcess>
 #include <QScrollArea>
+#include <QPlainTextEdit>
 
 // 字节数转可读字符串
 static QString fmtBytes(quint64 b)
@@ -79,6 +81,20 @@ MainWindow::MainWindow(QWidget *parent)
     setupMenus();
     applyStylesheet();
 
+    // 接收区（数据回传/查看）
+    {
+        QDockWidget *rxDock = new QDockWidget("接收数据", this);
+        rxDock->setObjectName("rxDock");
+        rxDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+        m_rxView = new QPlainTextEdit(rxDock);
+        m_rxView->setReadOnly(true);
+        m_rxView->setMaximumBlockCount(5000);
+        m_rxView->setStyleSheet("QPlainTextEdit { background:#0f1a20; color:#c8e6c9; font-size:14px; }");
+        rxDock->setWidget(m_rxView);
+        addDockWidget(Qt::RightDockWidgetArea, rxDock);
+        rxDock->hide();
+    }
+
     m_protocolLoader = new ProtocolLoader(this);
     connect(m_protocolLoader, &ProtocolLoader::signalLoadProtoFinish,
             this, &MainWindow::onProtocolLoaded);
@@ -133,6 +149,16 @@ void MainWindow::setupMenus()
     QAction *boot = new QAction("固件升级...", this);
     connect(boot, &QAction::triggered, this, &MainWindow::onLaunchBootApp);
     ui->menu_2->addAction(boot);
+
+    // 工具：批量发送
+    QAction *batch = new QAction("批量发送...", this);
+    connect(batch, &QAction::triggered, this, &MainWindow::openBatchSendWindow);
+    ui->menu_2->addAction(batch);
+
+    // 工具：bin 转 sou
+    QAction *conv = new QAction("bin转sou...", this);
+    connect(conv, &QAction::triggered, this, &MainWindow::onConvertBinToSou);
+    ui->menu_2->addAction(conv);
 
     // 帮助：关于
     QAction *about = new QAction("关于", this);
@@ -192,25 +218,16 @@ void MainWindow::buildTopBar()
 
     lay->addStretch(1);
 
-    // 发送区
-    m_sendEdit = new QLineEdit(top);
-    m_sendEdit->setPlaceholderText("发送内容");
-    m_sendEdit->setMinimumWidth(180);
-    m_sendEdit->setMinimumHeight(28);
-    lay->addWidget(m_sendEdit);
-
-    m_sendHex = new QCheckBox("Hex", top);
-    lay->addWidget(m_sendHex);
-
-    m_btnSend = new QPushButton("发送", top);
-    m_btnSend->setMinimumHeight(28);
-    lay->addWidget(m_btnSend);
+    // 批量发送（放在原"发送"区位置）
+    QPushButton *btnBatch = new QPushButton("批量发送", top);
+    btnBatch->setMinimumHeight(28);
+    btnBatch->setMinimumWidth(90);
+    lay->addWidget(btnBatch);
+    connect(btnBatch, &QPushButton::clicked, this, &MainWindow::openBatchSendWindow);
 
     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::toggleSerial);
     connect(m_btnOpenProto, &QPushButton::clicked, this, &MainWindow::onOpenProtocolFile);
     connect(m_btnSave, &QPushButton::clicked, this, &MainWindow::toggleSave);
-    connect(m_btnSend, &QPushButton::clicked, this, &MainWindow::sendCurrentData);
-    connect(m_sendEdit, &QLineEdit::returnPressed, this, &MainWindow::sendCurrentData);
 }
 
 void MainWindow::buildStatusBar()
@@ -476,6 +493,101 @@ void MainWindow::onLaunchBootApp()
     }
 }
 
+// 工具 → 批量发送：打开独立窗口（复用主窗口串口，收发统计同步）
+void MainWindow::openBatchSendWindow()
+{
+    BatchSendWindow *w = new BatchSendWindow(m_serialPort);
+    w->setAttribute(Qt::WA_DeleteOnClose);
+    w->setWindowFlag(Qt::Window, true);   // 独立顶层窗口，风格同绘图
+    connect(w, &BatchSendWindow::signalTxBytes, this, [this](qint64 n) {
+        m_txTotal += quint64(n);
+        m_txThisSec += quint64(n);
+    });
+    connect(w, &BatchSendWindow::signalEchoData, this, [this](const QString &text) {
+        if (!m_rxView) return;
+        m_rxView->appendPlainText(text);
+        QDockWidget *rxDock = findChild<QDockWidget*>("rxDock");
+        if (rxDock) rxDock->show();   // 回传时自动显示接收区
+    });
+    w->show();
+}
+
+// 工具 → bin转sou：调用 CreateSoul.bat 转换，失败/被杀毒拦截时弹窗提示
+void MainWindow::onConvertBinToSou()
+{
+    QString bin = QFileDialog::getOpenFileName(this, "选择 bin 文件", m_lastDir,
+                                               "BIN 文件 (*.bin);;所有文件 (*)");
+    if (bin.isEmpty()) return;
+    m_lastDir = QFileInfo(bin).absolutePath();
+
+    QString defaultSou = QFileInfo(bin).absolutePath() + "/"
+                       + QFileInfo(bin).completeBaseName() + ".sou";
+    QString sou = QFileDialog::getSaveFileName(this, "保存 sou 文件", defaultSou,
+                                               "SOU 文件 (*.sou)");
+    if (sou.isEmpty()) return;
+
+    // 定位转换工具 CreateSoul.exe（通过 CreateSoul.bat 调用，规避杀毒误报）
+    QString appDir = QCoreApplication::applicationDirPath();
+    QStringList dirCandidates = {
+        appDir + "/文件转换",
+        appDir + "/../文件转换",
+        QDir::currentPath() + "/文件转换",
+    };
+    QString toolDir;
+    for (const QString &c : dirCandidates) {
+        if (QFile::exists(c + "/CreateSoul.exe")) { toolDir = QFileInfo(c).absoluteFilePath(); break; }
+    }
+    if (toolDir.isEmpty()) {
+        QMessageBox::warning(this, "bin转sou",
+            "未找到转换工具 CreateSoul.exe。\n\n"
+            "请将 CreateSoul.exe 放到上位机同目录的「文件转换」文件夹，\n"
+            "并确认它未被杀毒软件拦截/删除。");
+        return;
+    }
+
+    // 生成临时 .bat（执行文件是 .bat，把本次参数写进去）
+    QString batPath = toolDir + "/_convert_tmp.bat";
+    {
+        QFile bat(batPath);
+        if (!bat.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QMessageBox::warning(this, "bin转sou", "无法创建临时转换脚本。");
+            return;
+        }
+        QTextStream ts(&bat);
+        ts << "@echo off\r\n"
+           << "\"" << toolDir << "/CreateSoul.exe\" \"" << bin << "\" \"" << sou << "\"\r\n";
+        bat.close();
+    }
+
+    QProcess p;
+    p.setWorkingDirectory(toolDir);
+    p.start("cmd.exe", QStringList() << "/c" << batPath);
+    if (!p.waitForStarted(3000)) {
+        QFile::remove(batPath);
+        QMessageBox::warning(this, "bin转sou",
+            "转换脚本启动失败，可能被杀毒软件拦截。\n\n"
+            "请在 Windows 安全中心把 CreateSoul.exe 加入白名单后重试。\n"
+            "工具目录：" + toolDir);
+        return;
+    }
+    if (!p.waitForFinished(60000)) {
+        p.kill();
+        QFile::remove(batPath);
+        QMessageBox::warning(this, "bin转sou", "转换超时。");
+        return;
+    }
+    QFile::remove(batPath);
+
+    if (p.exitCode() != 0 || !QFile::exists(sou)) {
+        QMessageBox::warning(this, "bin转sou",
+            QString("转换失败（退出码 %1），可能被杀毒软件拦截或文件被占用。\n输出：%2")
+                .arg(p.exitCode()).arg(sou));
+        return;
+    }
+    QMessageBox::information(this, "bin转sou",
+        QString("转换成功：\n%1").arg(sou));
+}
+
 void MainWindow::toggleSerial()
 {
     if (m_serialPort && m_serialPort->isOpen()) {
@@ -574,34 +686,6 @@ void MainWindow::drainRxCycle()
     if (got > 0) {
         m_rxBuffer.append(chunk);
         parseRxBuffer();
-    }
-}
-
-void MainWindow::sendCurrentData()
-{
-    if (!m_serialPort || !m_serialPort->isOpen()) {
-        statusBar()->showMessage("串口未打开，无法发送", 3000);
-        return;
-    }
-
-    QString txt = m_sendEdit->text();
-    if (txt.isEmpty()) return;
-
-    QByteArray out;
-    if (m_sendHex->isChecked()) {
-        QString h = txt;
-        h.remove(' ');
-        h.remove(',');
-        out = QByteArray::fromHex(h.toUtf8());
-    } else {
-        out = txt.toUtf8();
-    }
-    if (out.isEmpty()) return;
-
-    qint64 n = m_serialPort->write(out);
-    if (n > 0) {
-        m_txTotal += n;
-        m_txThisSec += n;
     }
 }
 

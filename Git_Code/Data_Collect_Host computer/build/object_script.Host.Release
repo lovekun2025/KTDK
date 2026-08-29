@@ -4,8 +4,10 @@ release/mainwindow.o
 release/plotwindow.o
 release/protocolloader.o
 release/serialconfigdialog.o
+release/batchsendwindow.o
 release/moc_dongtai.o
 release/moc_mainwindow.o
 release/moc_plotwindow.o
 release/moc_protocolloader.o
 release/moc_serialconfigdialog.o
+release/moc_batchsendwindow.o

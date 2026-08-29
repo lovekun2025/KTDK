@@ -4,8 +4,10 @@ debug/mainwindow.o
 debug/plotwindow.o
 debug/protocolloader.o
 debug/serialconfigdialog.o
+debug/batchsendwindow.o
 debug/moc_dongtai.o
 debug/moc_mainwindow.o
 debug/moc_plotwindow.o
 debug/moc_protocolloader.o
 debug/moc_serialconfigdialog.o
+debug/moc_batchsendwindow.o

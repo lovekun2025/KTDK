@@ -55,6 +55,10 @@ copy /y "%QT_DIR%\bin\libgcc_s_seh-1.dll" "%OUT_DIR%\" >nul
 copy /y "%QT_DIR%\bin\libgcc_s_dw2-1.dll" "%OUT_DIR%\" >nul
 copy /y "%QT_DIR%\bin\libstdc++-6.dll" "%OUT_DIR%\" >nul
 copy /y "%QT_DIR%\bin\libwinpthread-1.dll" "%OUT_DIR%\" >nul
+REM bin->sou 转换工具
+if not exist "%OUT_DIR%\文件转换" mkdir "%OUT_DIR%\文件转换" 2>nul
+copy /y "%PROJ_ROOT%文件转换\CreateSoul.exe" "%OUT_DIR%\文件转换\" >nul 2>nul
+copy /y "%PROJ_ROOT%文件转换\CreateSoul.bat" "%OUT_DIR%\文件转换\" >nul 2>nul
 echo   OK
 
 echo [5/5] Cleaning up ...

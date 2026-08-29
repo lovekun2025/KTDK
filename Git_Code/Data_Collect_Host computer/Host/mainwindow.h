@@ -33,6 +33,7 @@ QT_END_NAMESPACE
 
 class PlotWindow;
 class QProcess;
+class QPlainTextEdit;
 
 // 一帧待刷新的数据（显示值 + 数值）
 struct FrameUpdate
@@ -57,6 +58,8 @@ private slots:
     void onOpenProtocolFile();                    // 文件→打开协议文件
     void onOpenConfigDialog();                    // 工具→串口设置
     void onLaunchBootApp();                       // 工具→固件升级（外部调用 BootApp.exe）
+    void onConvertBinToSou();                     // 工具→bin转sou（调用 CreateSoul.exe）
+    void openBatchSendWindow();                   // 工具→批量发送（新窗口）
     void toggleSerial();                          // 顶栏 打开/关闭串口
     void onSerialConfig(const SerialConfig& config);
     void onSerialReadyRead();
@@ -79,9 +82,6 @@ private:
 
     QComboBox *m_comboBaud = nullptr;
     QPushButton *m_btnOpenProto = nullptr;
-    QLineEdit *m_sendEdit = nullptr;
-    QCheckBox *m_sendHex = nullptr;
-    QPushButton *m_btnSend = nullptr;
     QPushButton *m_btnSave = nullptr;   // 保存/取消
     QLineEdit *m_saveNameEdit = nullptr; // 保存文件夹备注名
 
@@ -113,6 +113,7 @@ private:
     QList<QFile*> m_saveFiles;           // 与 m_grids 一一对应
 
     QProcess *m_bootProc = nullptr;      // 固件升级子进程（BootApp.exe）
+    QPlainTextEdit *m_rxView = nullptr;  // 接收区（数据回传显示）
 
     void setupMenus();
     void buildTopBar();
@@ -127,7 +128,6 @@ private:
     void setSerialConnected(bool on);
     void parseRxBuffer();
     void drainRxCycle();
-    void sendCurrentData();
     void openPlotWindow();
     void startSave();
     void stopSave();

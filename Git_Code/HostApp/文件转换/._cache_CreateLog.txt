@@ -1,0 +1,9 @@
+Build at 2026 08 28 15 42 30 D:\Desktop\ProductFile\Code_Git\Git_Code\HostApp\文件转换 
+ Input:D:/Desktop/ProductFile/Code_Git/Git_Code/XB_GD32F405.bin
+Output:D:/Desktop/ProductFile/Code_Git/Git_Code/XB_GD32F405.sou
+文件大小：45564 
+校验和：0Xe0 0Xbe0Build at 2026 08 28 15 54 34 D:\Desktop\ProductFile\Code_Git\Git_Code\HostApp\文件转换 
+ Input:D:/Desktop/ProductFile/Code_Git/Git_Code/XB_GD32F405.bin
+Output:D:/Desktop/ProductFile/Code_Git/Git_Code/XB_GD32F405.sou
+文件大小：45564 
+校验和：0Xe0 0Xbe0

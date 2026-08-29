@@ -1,0 +1,1 @@
+CreateSoul.exe XB_GD32F405.bin XB_GD32F405.sou

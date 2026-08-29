@@ -23,7 +23,8 @@ SOURCES += \
     mainwindow.cpp \
     plotwindow.cpp \
     protocolloader.cpp \
-    serialconfigdialog.cpp
+    serialconfigdialog.cpp \
+    batchsendwindow.cpp
 
 HEADERS += \
     ccyclebuffer.h \
@@ -31,7 +32,8 @@ HEADERS += \
     mainwindow.h \
     plotwindow.h \
     protocolloader.h \
-    serialconfigdialog.h
+    serialconfigdialog.h \
+    batchsendwindow.h
 
 FORMS += \
     mainwindow.ui \
